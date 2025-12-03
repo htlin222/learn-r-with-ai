@@ -1,0 +1,200 @@
+# 第五部分：統計檢定
+
+本部分預計時間：30 分鐘
+
+## 任務 20：讓 AI 選擇統計方法
+
+📋 **複製這段話，貼給 AI：**
+
+> 我想要比較兩組病人（treatment A vs B）的住院天數（los）有沒有顯著差異。我的資料存在 `my_data` 裡面。
+> 
+> 請幫我：
+> 
+> 1. 判斷應該用什麼統計方法（為什麼）
+> 2. 給我執行這個檢定的 R 程式碼
+> 3. 告訴我怎麼解讀結果
+
+### 統計檢定選擇
+
+```{r}
+#| label: statistical-test
+#| echo: true
+#| message: false
+#| warning: false
+
+# 讀取資料
+my_data <- read.csv("patient_data.csv")
+
+# 先檢查資料分佈
+library(ggplot2)
+
+# 檢視分佈圖
+ggplot(my_data, aes(x = los, fill = treatment)) +
+  geom_histogram(binwidth = 1, alpha = 0.6, position = "dodge") +
+  facet_wrap(~treatment, ncol = 1) +
+  theme_minimal()
+
+# 常態性檢定
+shapiro_a <- shapiro.test(my_data$los[my_data$treatment == "A"])
+shapiro_b <- shapiro.test(my_data$los[my_data$treatment == "B"])
+
+print("Shapiro-Wilk 常態性檢定結果：")
+print(paste("A 組 p-value:", round(shapiro_a$p.value, 4)))
+print(paste("B 組 p-value:", round(shapiro_b$p.value, 4)))
+```
+
+### 執行統計檢定
+
+```{r}
+#| label: t-test
+#| echo: true
+
+# 執行 t-test（假設資料符合常態分佈）
+t_test_result <- t.test(los ~ treatment, data = my_data)
+print(t_test_result)
+
+# 執行 Wilcoxon rank-sum test（無母數檢定）
+wilcox_result <- wilcox.test(los ~ treatment, data = my_data)
+print(wilcox_result)
+```
+
+## 任務 21：解讀你的結果
+
+📋 **把統計檢定的輸出複製起來，加上這段話貼給 AI：**
+
+> 這是我的統計檢定結果：
+> 【貼上輸出】
+> 
+> 請用白話文解釋這個結果，包括：
+> 
+> 1. 兩組有沒有顯著差異
+> 2. p-value 是什麼意思
+> 3. 這個結果在臨床上可能代表什麼
+
+### 結果解讀
+
+```{r}
+#| label: interpret-results
+#| echo: true
+
+# 整理結果摘要
+library(dplyr)
+
+result_summary <- my_data %>%
+  group_by(treatment) %>%
+  summarise(
+    n = n(),
+    mean_los = mean(los),
+    sd_los = sd(los),
+    median_los = median(los),
+    min_los = min(los),
+    max_los = max(los)
+  )
+
+print("各組描述性統計：")
+print(result_summary)
+
+# 計算效應量（Cohen's d）
+if (!require(effsize, quietly = TRUE)) {
+  install.packages("effsize", repos = "https://cloud.r-project.org/")
+  library(effsize)
+}
+cohen_d <- cohen.d(los ~ treatment, data = my_data)
+print(paste("效應量 (Cohen's d):", round(cohen_d$estimate, 3)))
+
+# 解釋
+if (t_test_result$p.value < 0.05) {
+  print("結論：兩組在統計上有顯著差異 (p < 0.05)")
+  print(paste("B 組的平均住院天數比 A 組多約", 
+              round(diff(result_summary$mean_los), 1), "天"))
+} else {
+  print("結論：兩組在統計上無顯著差異 (p >= 0.05)")
+}
+```
+
+## 任務 22：檢查假設
+
+📋 **複製這段話，貼給 AI：**
+
+> 剛剛的統計檢定有什麼前提假設？我要怎麼用 R 檢查我的資料有沒有符合這些假設？如果不符合，有什麼替代方法？
+
+### 假設檢驗
+
+```{r}
+#| label: check-assumptions
+#| echo: true
+#| message: false
+#| warning: false
+
+# 1. 檢查常態性
+if (!require(car, quietly = TRUE)) {
+  install.packages("car", repos = "https://cloud.r-project.org/")
+  library(car)
+}
+
+# Q-Q plot
+par(mfrow = c(1, 2))
+qqnorm(my_data$los[my_data$treatment == "A"], main = "Q-Q Plot: Treatment A")
+qqline(my_data$los[my_data$treatment == "A"])
+
+qqnorm(my_data$los[my_data$treatment == "B"], main = "Q-Q Plot: Treatment B")
+qqline(my_data$los[my_data$treatment == "B"])
+
+# 2. 檢查變異數同質性
+levene_result <- leveneTest(los ~ treatment, data = my_data)
+print("Levene's Test for Homogeneity of Variance:")
+print(levene_result)
+
+# 3. 根據假設檢驗結果選擇適當方法
+if (shapiro_a$p.value < 0.05 | shapiro_b$p.value < 0.05) {
+  print("建議：資料不符合常態分佈，應使用 Wilcoxon rank-sum test")
+} else if (levene_result$`Pr(>F)`[1] < 0.05) {
+  print("建議：變異數不同質，應使用 Welch's t-test")
+  welch_result <- t.test(los ~ treatment, data = my_data, var.equal = FALSE)
+  print(welch_result)
+} else {
+  print("建議：資料符合所有假設，可使用 Student's t-test")
+}
+```
+
+## 任務 23：類別變數的比較
+
+📋 **複製這段話，貼給 AI：**
+
+> 我想要看 treatment（A vs B）和 gender（M vs F）有沒有關聯。也就是說，A 組和 B 組的男女比例有沒有不同。
+> 
+> 請給我適當的統計檢定程式碼，並教我怎麼解讀。
+
+### 類別變數檢定
+
+```{r}
+#| label: categorical-test
+#| echo: true
+
+# 建立列聯表
+contingency_table <- table(my_data$treatment, my_data$gender)
+print("列聯表：")
+print(contingency_table)
+
+# 加上比例
+prop_table <- prop.table(contingency_table, margin = 1) * 100
+print("各組性別比例（%）：")
+print(round(prop_table, 1))
+
+# 執行卡方檢定
+chisq_result <- chisq.test(contingency_table)
+print("卡方檢定結果：")
+print(chisq_result)
+
+# Fisher's exact test（適用於小樣本）
+fisher_result <- fisher.test(contingency_table)
+print("Fisher's exact test：")
+print(fisher_result)
+
+# 解讀結果
+if (chisq_result$p.value < 0.05) {
+  print("結論：兩組的性別分佈有顯著差異")
+} else {
+  print("結論：兩組的性別分佈無顯著差異")
+}
+```

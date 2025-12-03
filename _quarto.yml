@@ -1,0 +1,28 @@
+project:
+  type: book
+
+book:
+  title: "R 語言統計工具入門：用 AI 學會做臨床研究統計"
+  author: "林協霆"
+  date: "2025/12/05"
+  chapters:
+    - index.qmd
+    - part1.qmd
+    - part2.qmd
+    - part3.qmd
+    - part4.qmd
+    - part5.qmd
+    - part6.qmd
+    - appendix.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: false
+    code-tools: true
+  pdf:
+    documentclass: scrreprt
+    lang: zh-TW

@@ -1,0 +1,185 @@
+# 第四部分：畫出論文等級的圖
+
+本部分預計時間：40 分鐘
+
+## 任務 15：第一個盒狀圖
+
+📋 **複製這段話，貼給 AI：**
+
+> 我有一個資料框 `my_data`，裡面有 treatment（A 或 B 兩組）和 los（住院天數）。請用 ggplot2 畫一個盒狀圖，比較兩組的住院天數分佈。
+
+### 基本盒狀圖
+
+```{r}
+#| label: boxplot-basic
+#| echo: true
+#| message: false
+#| warning: false
+
+library(ggplot2)
+
+# 讀取資料
+my_data <- read.csv("patient_data.csv")
+
+# 畫基本盒狀圖
+ggplot(my_data, aes(x = treatment, y = los)) +
+  geom_boxplot()
+```
+
+## 任務 16：讓圖變專業
+
+📋 **複製這段話，貼給 AI：**
+
+> 請幫我美化這個盒狀圖：
+> 
+> 1. 加上標題「兩組治療的住院天數比較」
+> 2. X 軸標籤改成「治療組別」，Y 軸改成「住院天數（天）」
+> 3. 兩組用不同顏色（藍色和橘色）
+> 4. 使用簡潔的主題風格
+> 5. 不要顯示圖例（因為 X 軸已經說明了）
+
+### 專業化盒狀圖
+
+```{r}
+#| label: boxplot-professional
+#| echo: true
+#| message: false
+#| warning: false
+
+# 畫專業的盒狀圖
+ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("A" = "steelblue", "B" = "darkorange")) +
+  labs(
+    title = "兩組治療的住院天數比較",
+    x = "治療組別",
+    y = "住院天數（天）"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+  )
+```
+
+## 任務 17：加上資料點
+
+📋 **複製這段話，貼給 AI：**
+
+> 我想在盒狀圖上面疊加個別的資料點，讓讀者可以看到實際的分佈。但資料點不要完全重疊，要有一點水平的隨機散開。請修改程式碼。
+
+### 加入資料點的盒狀圖
+
+```{r}
+#| label: boxplot-with-points
+#| echo: true
+#| message: false
+#| warning: false
+
+# 盒狀圖加上資料點
+ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.2, alpha = 0.5, size = 2) +
+  scale_fill_manual(values = c("A" = "steelblue", "B" = "darkorange")) +
+  labs(
+    title = "兩組治療的住院天數比較",
+    x = "治療組別",
+    y = "住院天數（天）"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
+  )
+```
+
+## 任務 18：其他類型的圖
+
+### 選項 A：長條圖
+
+```{r}
+#| label: barplot
+#| echo: true
+#| message: false
+#| warning: false
+
+# 性別分佈長條圖
+ggplot(my_data, aes(x = gender, fill = gender)) +
+  geom_bar() +
+  scale_fill_manual(values = c("M" = "lightblue", "F" = "pink")) +
+  labs(
+    title = "性別分佈",
+    x = "性別",
+    y = "人數"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+### 選項 B：散佈圖
+
+```{r}
+#| label: scatterplot
+#| echo: true
+#| message: false
+#| warning: false
+
+# 年齡與住院天數散佈圖
+ggplot(my_data, aes(x = age, y = los, color = treatment)) +
+  geom_point(size = 3, alpha = 0.6) +
+  geom_smooth(method = "lm", se = TRUE) +
+  scale_color_manual(values = c("A" = "steelblue", "B" = "darkorange")) +
+  labs(
+    title = "年齡與住院天數的關係",
+    x = "年齡（歲）",
+    y = "住院天數（天）",
+    color = "治療組別"
+  ) +
+  theme_minimal()
+```
+
+### 選項 C：直方圖
+
+```{r}
+#| label: histogram
+#| echo: true
+#| message: false
+#| warning: false
+
+# 住院天數分佈直方圖
+ggplot(my_data, aes(x = los, fill = treatment)) +
+  geom_histogram(binwidth = 2, alpha = 0.7, position = "dodge") +
+  scale_fill_manual(values = c("A" = "steelblue", "B" = "darkorange")) +
+  labs(
+    title = "住院天數分佈",
+    x = "住院天數（天）",
+    y = "人數",
+    fill = "治療組別"
+  ) +
+  theme_minimal()
+```
+
+## 任務 19：存檔你的圖
+
+📋 **複製這段話，貼給 AI：**
+
+> 我畫好了一張 ggplot2 的圖，想要存成 PNG 檔案，解析度要夠高可以放在論文裡（300 dpi），大小大約是 8 x 6 英吋。請給我存檔的程式碼。
+
+### 儲存高品質圖檔
+
+```{r}
+#| label: save-plot
+#| echo: true
+#| eval: false
+
+# 儲存最後畫的圖
+ggsave(
+  filename = "boxplot_comparison.png",
+  width = 8,
+  height = 6,
+  dpi = 300,
+  units = "in"
+)
+
+print("圖表已成功儲存為 boxplot_comparison.png")
+```

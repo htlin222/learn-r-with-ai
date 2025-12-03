@@ -1,0 +1,39 @@
+# Quarto output directories
+_book/
+_site/
+
+# Quarto cache and freeze directories
+.quarto/
+_freeze/
+
+# R files
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*~
+*.tmp
+*.temp
+
+# Log files
+*.log
+
+# Package files
+*.tar.gz
+*.zip
+
+# IDE files
+.vscode/
+.idea/
+
+# Output files (optional - remove if you want to track them)
+*.html
+*.pdf
+*.docx
