@@ -2,6 +2,9 @@
 
 歡迎來到「R 語言統計工具入門：用 AI 學會做臨床研究統計」！
 
+- [本書連結](https://htlin222.github.io/2025-12-05-R-Basics/)
+- [Github Repo](https://github.com/htlin222/2025-12-05-R-Basics) 以及 [下載程式碼的連結](https://github.com/htlin222/2025-12-05-R-Basics/archive/refs/heads/main.zip)
+
 ## 課程目標
 
 今天結束時，你將能夠：
@@ -17,7 +20,7 @@
 1. 我給你一個「任務」
 2. 你把任務描述貼給 AI（ChatGPT / Claude）
 3. AI 給你程式碼
-4. 你貼到 RStudio 執行
+4. 你貼到 RStudio / Antigravity 執行
 5. 我們一起看結果、理解發生了什麼
 
 **記住：你的工作是「問對問題」，不是「寫對程式」。**

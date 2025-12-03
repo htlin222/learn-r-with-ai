@@ -6,7 +6,7 @@
 
 📋 **複製這段話，貼給 AI：**
 
-> 我有一個 CSV 檔案叫做 patient_data.csv，放在我的桌面。我正在用 RStudio。請告訴我：
+> 我有一個 CSV 檔案叫做 patient_data.csv，放在我的桌面。我正在用 RStudio / Antigravity。請告訴我：
 > 
 > 1. 怎麼讀取這個檔案到 R 裡面
 > 2. 怎麼看前幾筆資料確認有讀成功

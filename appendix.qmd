@@ -264,7 +264,7 @@ pak::pak("bioc::Biobase")          # Bioconductor
 rig add release # 安裝最新穩定版
 rig add 4.3.2   # 安裝特定版本
 rig default 4.4 # 設定預設版本
-rig rstudio 4.3 # 以特定版本啟動 RStudio
+rig rstudio 4.3 # 以特定版本啟動 RStudio / Antigravity
 ```
 
 macOS 使用者也可選擇 **RSwitch** 作為 GUI 替代方案。
@@ -313,7 +313,7 @@ df %>% {paste(.$name, .$id)}  # placeholder 多次使用
 | purrr | ⚠️ 可選 | R 4.1+ 匿名函數 `\(x)` 減少需求 |
 | forcats | ⚠️ 可選 | 因子處理，非必要 |
 
-## 非 RStudio 開發環境設定
+## 非 RStudio / Antigravity 開發環境設定
 
 ### VS Code or Antigravity 完整設定
 
@@ -361,10 +361,10 @@ require("lazy").setup({
 **Positron**（https://posit.co/products/open-source/positron/）於 2025 年 8 月釋出穩定版，基於 VS Code 但專為資料科學優化：
 
 - R 和 Python 無需安裝擴展即可使用
-- 內建資料框檢視器（類似 RStudio 的 View()）
+- 內建資料框檢視器（類似 RStudio / Antigravity 的 View()）
 - Posit 官方開發維護
 
-**適合場景**：R + Python 多語言專案、想要 RStudio 功能但偏好 VS Code 介面者。
+**適合場景**：R + Python 多語言專案、想要 RStudio / Antigravity 功能但偏好 VS Code 介面者。
 
 ## 實用工具套件：2025 必裝清單
 

@@ -27,7 +27,7 @@ barplot(heights,
         col = "steelblue")
 ```
 
-⏱️ 3 分鐘後，你應該會在 RStudio 看到一張圖。
+⏱️ 3 分鐘後，你應該會在 RStudio / Antigravity 看到一張圖。
 
 ## 任務 2：發生了什麼事？
 
@@ -45,7 +45,7 @@ barplot(heights,
 
 📋 **如果剛剛有錯誤訊息，複製錯誤訊息，加上這段話貼給 AI：**
 
-> 我在 RStudio 執行你給的程式碼，出現這個錯誤：
+> 我在 RStudio / Antigravity 執行你給的程式碼，出現這個錯誤：
 > 【貼上錯誤訊息】
 > 請告訴我這是什麼意思，以及怎麼修正。
 

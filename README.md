@@ -28,7 +28,10 @@
 確保您已安裝：
 
 - [Quarto](https://quarto.org/docs/get-started/)
-- R 和 RStudio
+- [R](https://cran.r-project.org/)
+- IDE 選擇（任選一個）：
+  - [RStudio](https://posit.co/download/rstudio-desktop/) - 傳統 R 開發環境
+  - [Antigravity](https://antigravity.dev/) - 現代 AI 輔助開發環境
 
 ### 構建書籍
 
