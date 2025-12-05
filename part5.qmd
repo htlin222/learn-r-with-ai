@@ -268,12 +268,12 @@ table(survival_data$treatment, survival_data$status)
 if (!require(survival, quietly = TRUE)) {
   install.packages("survival", repos = "https://cloud.r-project.org/")
 }
-if (!require(survminer, quietly = TRUE)) {
-  install.packages("survminer", repos = "https://cloud.r-project.org/")
+if (!require(ggsurvfit, quietly = TRUE)) {
+  install.packages("ggsurvfit", repos = "https://cloud.r-project.org/")
 }
 
 library(survival)
-library(survminer)
+library(ggsurvfit)
 
 # 建立存活物件
 # Surv(time, status) 會建立一個存活時間物件
@@ -293,30 +293,41 @@ head(surv_obj, 10)
 #| message: false
 #| warning: false
 #| fig-width: 10
-#| fig-height: 7
+#| fig-height: 8
+
+# 使用 ggsurvfit 繪製存活曲線
+# survfit2() 是 ggsurvfit 的專用函數，可以更好地追蹤變數名稱
+survfit2(Surv(time, status) ~ treatment, data = survival_data) |>
+  ggsurvfit(linewidth = 1) +
+  add_confidence_interval() +
+  add_risktable() +
+  add_pvalue(caption = "Log-rank {p.value}") +
+  add_quantile(y_value = 0.5, linetype = "dashed", color = "gray50") +
+  scale_color_manual(values = c("#E7B800", "#2E9FDF")) +
+  scale_fill_manual(values = c("#E7B800", "#2E9FDF")) +
+  labs(
+    x = "追蹤時間（月）",
+    y = "存活機率",
+    title = "Kaplan-Meier 存活曲線：Drug A vs Drug B"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    plot.title = element_text(hjust = 0.5, face = "bold")
+  )
+```
+
+### 查看存活率摘要
+
+```{r}
+#| label: survival-summary
+#| echo: true
 
 # 依照治療組別做 Kaplan-Meier 分析
 km_fit <- survfit(Surv(time, status) ~ treatment, data = survival_data)
 
 # 查看摘要（6個月、12個月、24個月的存活率）
 summary(km_fit, times = c(6, 12, 24))
-
-# 繪製存活曲線（使用 survminer 套件的 ggsurvplot）
-ggsurvplot(
-  km_fit,
-  data = survival_data,
-  pval = TRUE,                    # 顯示 log-rank test p-value
-  conf.int = TRUE,                # 顯示 95% 信賴區間
-  risk.table = TRUE,              # 顯示風險表（各時間點的人數）
-  risk.table.col = "strata",      # 風險表顏色依組別
-  legend.title = "治療組別",
-  legend.labs = c("Drug A", "Drug B"),
-  xlab = "追蹤時間（月）",
-  ylab = "存活機率",
-  title = "Kaplan-Meier 存活曲線：Drug A vs Drug B",
-  palette = c("#E7B800", "#2E9FDF"),  # 自訂顏色
-  ggtheme = theme_bw()            # 使用簡潔主題
-)
 ```
 
 ### Log-Rank Test：比較兩組存活率
@@ -351,8 +362,10 @@ if (logrank_pvalue < 0.05) {
 print("各組中位存活時間（月）：")
 print(km_fit)
 
-# 更詳細的摘要
-summary(km_fit)$table
+# 使用 ggsurvfit 的 tidy 方式呈現
+survfit2(Surv(time, status) ~ treatment, data = survival_data) |>
+  tidy_survfit() |>
+  head(10)
 ```
 
 ### 進階：Cox 比例風險模型
