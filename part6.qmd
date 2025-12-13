@@ -1,5 +1,11 @@
 # 第六部分：整合與收尾
 
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
 本部分預計時間：20 分鐘
 
 ## 任務 24：完整的分析流程
@@ -70,7 +76,7 @@ table1 <- my_data %>%
 # 顯示 Table 1
 print(table1)
 
-# 3. 繪製盒狀圖
+# 3. 繪製盒狀圖（字型已由 _common.R 全域設定）
 # ---------------------------
 p <- ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
   geom_boxplot(alpha = 0.7) +
@@ -81,11 +87,7 @@ p <- ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
     x = "治療組別",
     y = "住院天數（天）"
   ) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
-  )
+  theme(legend.position = "none")
 
 # 顯示圖表
 print(p)
@@ -247,12 +249,12 @@ table_result <- data %>%
 
 print(table_result)
 
-# 繪製比較圖
+# 繪製比較圖（字型已由 _common.R 全域設定）
 plot_formula <- as.formula(paste(OUTCOME_VAR, "~", GROUP_VAR))
 
-comparison_plot <- ggplot(data, 
-                          aes_string(x = GROUP_VAR, 
-                                    y = OUTCOME_VAR, 
+comparison_plot <- ggplot(data,
+                          aes_string(x = GROUP_VAR,
+                                    y = OUTCOME_VAR,
                                     fill = GROUP_VAR)) +
   geom_boxplot(alpha = 0.7) +
   geom_jitter(width = 0.2, alpha = 0.5, size = 2) +
@@ -262,11 +264,7 @@ comparison_plot <- ggplot(data,
     x = LABELS[[GROUP_VAR]],
     y = LABELS[[OUTCOME_VAR]]
   ) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
-  )
+  theme(legend.position = "none")
 
 print(comparison_plot)
 

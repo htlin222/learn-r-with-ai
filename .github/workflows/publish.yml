@@ -28,6 +28,11 @@ jobs:
         with:
           use-public-rspm: true
 
+      - name: Install system dependencies for showtext
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libfreetype6-dev libpng-dev libcurl4-openssl-dev libfontconfig1-dev
+
       - name: Install R packages
         uses: r-lib/actions/setup-r-dependencies@v2
         with:
@@ -51,6 +56,8 @@ jobs:
             any::tibble
             any::car
             any::report
+            any::showtext
+            any::sysfonts
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2

@@ -1,5 +1,11 @@
 # 第三部分：產出你的 Table 1
 
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
 本部分預計時間：40 分鐘
 
 ## 任務 9：Table 1 是什麼？

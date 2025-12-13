@@ -1,5 +1,11 @@
 # 前言 {.unnumbered}
 
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
 歡迎來到「R 語言統計工具入門：用 AI 學會做臨床研究統計」！
 
 - [本書連結](https://htlin222.github.io/learn-r-with-ai/)

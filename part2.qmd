@@ -1,5 +1,11 @@
 # 第二部分：讀取你的資料
 
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
 本部分預計時間：20 分鐘
 
 ## 任務 6：讀取 CSV 檔案

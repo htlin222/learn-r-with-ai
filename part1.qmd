@@ -1,5 +1,11 @@
 # 第一部分：快速入門
 
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
 本部分預計時間：40 分鐘
 
 ## 環境設定
@@ -36,8 +42,9 @@
 heights <- c(10, 25, 15, 30, 20)
 categories <- c("A", "B", "C", "D", "E")
 
-# 畫長條圖
-barplot(heights, 
+# 畫長條圖（字型已由 _common.R 全域設定）
+par(family = "jf-openhuninn")
+barplot(heights,
         names.arg = categories,
         main = "我的第一個 R 圖表",
         xlab = "類別",
@@ -108,7 +115,7 @@ barplot(height)  # 變數名稱打錯了
 install.packages("pak")
 
 # 用 pak 安裝其他套件（只需執行一次）
-pak::pak(c("ggplot2", "gtsummary", "broom", "dplyr", "tidyverse", "report", "skimr"))
+pak::pak(c("ggplot2", "gtsummary", "broom", "dplyr", "tidyverse", "report", "skimr", "showtext", "sysfonts"))
 
 # 載入套件（每次使用前都要執行）
 library(tidyverse)  # 包含 ggplot2, dplyr 等
@@ -116,6 +123,13 @@ library(gtsummary)
 library(broom)
 library(report)
 library(skimr)
+
+# 載入中文字型（本專案已在 _common.R 統一設定）
+# 如需手動設定，可使用：
+# library(showtext)
+# library(sysfonts)
+# font_add("jf-openhuninn", "jf-openhuninn-2.1.ttf")
+# showtext_auto()
 ```
 
 ⏱️ 安裝可能需要 2-3 分鐘，這是正常的。

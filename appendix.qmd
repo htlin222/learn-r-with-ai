@@ -1,5 +1,11 @@
 # 附錄：常見技術問題與解決方案
 
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
 ### R 環境設置
 
 #### 套件安裝問題

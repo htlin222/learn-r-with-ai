@@ -1,5 +1,11 @@
 # 第五部分：統計檢定
 
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
 本部分預計時間：30 分鐘
 
 ## 任務 19：讓 AI 選擇統計方法
@@ -29,11 +35,10 @@ patient_data <- read.csv("patient_data.csv")
 # 先檢查資料分佈
 library(ggplot2)
 
-# 檢視分佈圖
+# 檢視分佈圖（字型已由 _common.R 全域設定）
 ggplot(patient_data, aes(x = los, fill = treatment)) +
   geom_histogram(binwidth = 1, alpha = 0.6, position = "dodge") +
-  facet_wrap(~treatment, ncol = 1) +
-  theme_minimal()
+  facet_wrap(~treatment, ncol = 1)
 
 # 常態性檢定
 shapiro_a <- shapiro.test(patient_data$los[patient_data$treatment == "A"])
@@ -417,7 +422,7 @@ head(surv_obj, 10)
 #| fig-width: 10
 #| fig-height: 8
 
-# 使用 ggsurvfit 繪製存活曲線
+# 使用 ggsurvfit 繪製存活曲線（字型已由 _common.R 全域設定）
 # survfit2() 是 ggsurvfit 的專用函數，可以更好地追蹤變數名稱
 survfit2(Surv(time, status) ~ treatment, data = survival_data) |>
   ggsurvfit(linewidth = 1) +
@@ -432,11 +437,7 @@ survfit2(Surv(time, status) ~ treatment, data = survival_data) |>
     y = "存活機率",
     title = "Kaplan-Meier 存活曲線：Drug A vs Drug B"
   ) +
-  theme_minimal() +
-  theme(
-    legend.position = "bottom",
-    plot.title = element_text(hjust = 0.5, face = "bold")
-  )
+  theme(legend.position = "bottom")
 ```
 
 ### 查看存活率摘要

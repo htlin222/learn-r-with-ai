@@ -1,6 +1,18 @@
 project:
   type: book
 
+# 全域 knitr 設定
+knitr:
+  opts_chunk:
+    message: false
+    warning: false
+    fig.showtext: true
+
+# 執行設定
+execute:
+  echo: true
+  freeze: auto
+
 book:
   title: "R 語言統計工具入門：用 AI 學會做臨床研究統計"
   author: "林協霆"

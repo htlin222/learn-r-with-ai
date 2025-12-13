@@ -1,5 +1,11 @@
 # 第四部分：畫出論文等級的圖
 
+```{r}
+#| label: setup
+#| include: false
+source("_common.R")
+```
+
 本部分預計時間：40 分鐘
 
 ## 任務 15：第一個盒狀圖
@@ -21,7 +27,7 @@ library(ggplot2)
 # 讀取資料
 patient_data <- read.csv("patient_data.csv")
 
-# 畫基本盒狀圖
+# 畫基本盒狀圖（字型已由 _common.R 全域設定）
 ggplot(patient_data, aes(x = treatment, y = los)) +
   geom_boxplot()
 ```
@@ -53,7 +59,7 @@ ggplot(patient_data, aes(x = treatment, y = los)) +
 # 載入 ggsci 套件（提供期刊風格配色）[@R-ggsci]
 library(ggsci)
 
-# 畫專業的盒狀圖（使用 JAMA 配色）
+# 畫專業的盒狀圖（使用 JAMA 配色，字型已由 _common.R 全域設定）
 ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
   geom_boxplot() +
   scale_fill_jama() +
@@ -62,11 +68,7 @@ ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
     x = "治療組別",
     y = "住院天數（天）"
   ) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
-  )
+  theme(legend.position = "none")
 ```
 
 ## 任務 17：加上資料點
@@ -93,11 +95,7 @@ ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
     x = "治療組別",
     y = "住院天數（天）"
   ) +
-  theme_minimal() +
-  theme(
-    legend.position = "none",
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5)
-  )
+  theme(legend.position = "none")
 ```
 
 ## 任務 18：其他類型的圖
@@ -135,7 +133,6 @@ ggplot(patient_data, aes(x = gender, fill = gender)) +
     x = "性別",
     y = "人數"
   ) +
-  theme_minimal() +
   theme(legend.position = "none")
 ```
 
@@ -157,8 +154,7 @@ ggplot(patient_data, aes(x = age, y = los, color = treatment)) +
     x = "年齡（歲）",
     y = "住院天數（天）",
     color = "治療組別"
-  ) +
-  theme_minimal()
+  )
 ```
 
 ### 直方圖範例
@@ -178,8 +174,7 @@ ggplot(patient_data, aes(x = los, fill = treatment)) +
     x = "住院天數（天）",
     y = "人數",
     fill = "治療組別"
-  ) +
-  theme_minimal()
+  )
 ```
 
 ### 使用 patchwork 整合多張圖
@@ -194,18 +189,18 @@ ggplot(patient_data, aes(x = los, fill = treatment)) +
 
 library(patchwork)
 
-# 建立三張圖
+# 建立三張圖（字型已由 _common.R 全域設定）
 p1 <- ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
-  geom_boxplot() + scale_fill_jama() + theme_minimal() +
+  geom_boxplot() + scale_fill_jama() +
   theme(legend.position = "none") + labs(title = "A. 盒狀圖")
 
 p2 <- ggplot(patient_data, aes(x = age, y = los, color = treatment)) +
-  geom_point() + scale_color_jama() + theme_minimal() +
+  geom_point() + scale_color_jama() +
   labs(title = "B. 散佈圖")
 
 p3 <- ggplot(patient_data, aes(x = los, fill = treatment)) +
   geom_histogram(binwidth = 2, alpha = 0.7) + scale_fill_jama() +
-  theme_minimal() + labs(title = "C. 直方圖")
+  labs(title = "C. 直方圖")
 
 # 用 patchwork 組合
 (p1 | p2) / p3 + plot_annotation(title = "綜合圖表分析")
