@@ -83,13 +83,13 @@ print(wilcox_result)
 # 載入必要套件
 library(dplyr)
 
-# 安裝並載入 broom 套件（用於整理統計結果）
+# 安裝並載入 broom 套件（用於整理統計結果）[@R-broom]
 if (!require(broom, quietly = TRUE)) {
   install.packages("broom", repos = "https://cloud.r-project.org/")
 }
 library(broom)
 
-# 安裝並載入 effsize 套件（用於計算效應量）
+# 安裝並載入 effsize 套件（用於計算效應量）[@R-effsize]
 if (!require(effsize, quietly = TRUE)) {
   install.packages("effsize", repos = "https://cloud.r-project.org/")
 }
@@ -242,7 +242,7 @@ cat("...\n")
 #| message: false
 #| warning: false
 
-# 1. 檢查常態性
+# 1. 檢查常態性 [@R-car]
 if (!require(car, quietly = TRUE)) {
   install.packages("car", repos = "https://cloud.r-project.org/")
   library(car)
@@ -386,7 +386,7 @@ table(survival_data$treatment, survival_data$status)
 #| message: false
 #| warning: false
 
-# 安裝並載入必要套件
+# 安裝並載入必要套件 [@R-survival; @R-ggsurvfit]
 if (!require(survival, quietly = TRUE)) {
   install.packages("survival", repos = "https://cloud.r-project.org/")
 }
@@ -511,7 +511,7 @@ cox_model <- coxph(
 # 查看模型結果
 summary(cox_model)
 
-# 整理成漂亮的表格
+# 整理成漂亮的表格 [@R-gtsummary]
 if (!require(gtsummary, quietly = TRUE)) {
   install.packages("gtsummary", repos = "https://cloud.r-project.org/")
 }

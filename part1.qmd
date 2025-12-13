@@ -96,7 +96,7 @@ barplot(height)  # 變數名稱打錯了
 
 📋 **複製這段話，貼給 AI：**
 
-> 我要在 R 裡面使用 ggplot2、gtsummary、broom、dplyr、tidyverse、report、skimr 這些套件。請給我安裝這些套件的程式碼，以及安裝完之後怎麼載入它們。先裝 pak 這個套件，之後用它來安裝其他套件。
+> 我要在 R 裡面使用 ggplot2 [@R-ggplot2]、gtsummary [@R-gtsummary]、broom [@R-broom]、dplyr [@R-dplyr]、tidyverse [@R-tidyverse]、report [@R-report]、skimr [@R-skimr] 這些套件。請給我安裝這些套件的程式碼，以及安裝完之後怎麼載入它們。先裝 pak 這個套件，之後用它來安裝其他套件。
 
 ### 安裝與載入套件
 
@@ -128,7 +128,7 @@ library(skimr)
 
 ### 說明
 
-`renv` 是 R 的套件版本管理工具，可以：
+`renv` [@R-renv] 是 R 的套件版本管理工具，可以：
 
 - 記錄專案使用的套件版本
 - 確保分析結果的可重現性

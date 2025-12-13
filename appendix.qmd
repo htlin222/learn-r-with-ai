@@ -111,7 +111,7 @@ my_data <- read.csv("patient_data.csv", fileEncoding = "UTF-8")
 
 ### 臨床專用圖表的最佳選擇
 
-**存活曲線：ggsurvfit（2025 標準）**
+**存活曲線：ggsurvfit（2025 標準）** [@R-ggsurvfit]
 
 survminer 已逐漸被 **ggsurvfit** 取代。關鍵差異在於 ggsurvfit 回傳真正的 ggplot 物件，可完全客製化：
 
@@ -150,7 +150,7 @@ ggsurvfit 由 pharmaverse 團隊開發，原生支援 CDISC ADaM 資料格式，
 
 ## 流程圖製作：CONSORT/STROBE 圖的最佳解決方案
 
-### 2025 年推薦：flowchart 套件
+### 2025 年推薦：flowchart 套件 [@R-flowchart]
 
 **flowchart** 套件（2024 年 2 月首發，2024 年 11 月更新至 v0.6.0）採用 tidyverse 工作流程，可從資料框自動計算受試者人數：
 
@@ -178,7 +178,7 @@ data |>
 
 ### Table 1（基線特徵表）
 
-**gtsummary** 已成為臨床研究 Table 1 的事實標準，取代了較舊的 tableone：
+**gtsummary** [@R-gtsummary] 已成為臨床研究 Table 1 的事實標準，取代了較舊的 tableone：
 
 | 功能 | gtsummary | tableone | table1 | arsenal |
 |-----|-----------|----------|--------|---------|
@@ -206,7 +206,7 @@ data |>
 
 ### 輸出格式化
 
-**Word 輸出（期刊投稿必備）**：使用 **flextable**
+**Word 輸出（期刊投稿必備）**：使用 **flextable** [@R-flextable]
 
 ```r
 tbl_summary(data, by = group) |>
@@ -225,7 +225,7 @@ tbl_summary(data, by = group) |>
 
 ## 環境與套件管理：2025 年標準工具鏈
 
-### 專案環境管理：renv（packrat 已棄用）
+### 專案環境管理：renv（packrat 已棄用） [@R-renv]
 
 **packrat 已被官方軟棄用**，renv 是唯一推薦選擇：
 
@@ -373,7 +373,7 @@ require("lazy").setup({
 | 套件 | 功能 | 最後更新 |
 |-----|------|---------|
 | **janitor** | clean_names()、tabyl()、get_dupes() | 2024.12 |
-| **skimr** | skim() 超越 summary() 的資料摘要 | 活躍 |
+| **skimr** [@R-skimr] | skim() 超越 summary() 的資料摘要 | 活躍 |
 | **tidylog** | dplyr 操作即時回饋 | 活躍 |
 
 ### 檔案操作

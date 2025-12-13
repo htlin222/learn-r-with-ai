@@ -37,7 +37,7 @@ head(patient_data)
 > 1. 看這個資料有幾列幾欄
 > 2. 看每個欄位的基本統計（平均、最大、最小等）
 > 3. 看每個欄位是什麼資料類型（數字、文字等）
-> 4. 用 skimr 跟 summary 顯示分析結果
+> 4. 用 skimr [@R-skimr] 跟 summary 顯示分析結果
 
 ### 探索資料
 
@@ -47,7 +47,7 @@ head(patient_data)
 #| message: false
 #| warning: false
 
-# 載入 skimr 套件
+# 載入 skimr 套件 [@R-skimr]
 library(skimr)
 
 # 查看資料維度（幾列幾欄）

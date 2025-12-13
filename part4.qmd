@@ -6,7 +6,7 @@
 
 📋 **複製這段話，貼給 AI：**
 
-> 我有一個資料框 `patient_data`，裡面有 treatment（A 或 B 兩組）和 los（住院天數）。請用 ggplot2 畫一個盒狀圖，比較兩組的住院天數分佈。
+> 我有一個資料框 `patient_data`，裡面有 treatment（A 或 B 兩組）和 los（住院天數）。請用 ggplot2 [@R-ggplot2] 畫一個盒狀圖，比較兩組的住院天數分佈。
 
 ### 基本盒狀圖
 
@@ -34,11 +34,11 @@ ggplot(patient_data, aes(x = treatment, y = los)) +
 >
 > 1. 加上標題「兩組治療的住院天數比較」
 > 2. X 軸標籤改成「治療組別」，Y 軸改成「住院天數（天）」
-> 3. 用 jf-openhuninn-2.1.ttf 作為中文字體
-> 4. 使用 ggsci 的 JAMA 風格
+> 3. 用 jf-openhuninn-2.1.ttf [@jf-openhuninn] 作為中文字體
+> 4. 使用 ggsci [@R-ggsci] 的 JAMA 風格
 > 5. 不要顯示圖例（因為 X 軸已經說明了）
 
-請先下載 jf open 粉圓字型。
+請先下載 [jf open 粉圓字型](https://github.com/justfont/open-huninn-font)。
 
 其他推薦的美化套件：ggthemr, hrbrthemes, tvthemes, ggthemes, viridis, scico
 
@@ -50,7 +50,7 @@ ggplot(patient_data, aes(x = treatment, y = los)) +
 #| message: false
 #| warning: false
 
-# 載入 ggsci 套件（提供期刊風格配色）
+# 載入 ggsci 套件（提供期刊風格配色）[@R-ggsci]
 library(ggsci)
 
 # 畫專業的盒狀圖（使用 JAMA 配色）
@@ -116,7 +116,7 @@ ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
 
 > 請用 ggplot2 畫一個直方圖，顯示 los 的分佈。
 
-用 patchwork 把所有 Graph 整合在一起。視情況使用 ggdist / ggtext / ggiraph / ggh4x。
+用 patchwork [@R-patchwork] 把所有 Graph 整合在一起。視情況使用 ggdist / ggtext / ggiraph / ggh4x。
 
 ### 長條圖範例
 
@@ -216,7 +216,7 @@ p3 <- ggplot(patient_data, aes(x = los, fill = treatment)) +
 📋 **複製這段話，貼給 AI：**
 
 > 我畫好了一張 ggplot2 的圖，想要存成 PNG 檔案，解析度要夠高可以放在論文裡（300 dpi），大小大約是 8×6 英吋。請給我存檔的程式碼。
-> 接著用 svglite 存成 svg 檔（請先下載 svglite）
+> 接著用 svglite [@R-svglite] 存成 svg 檔（請先下載 svglite）
 
 ### 儲存高品質圖檔
 

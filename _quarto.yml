@@ -15,6 +15,9 @@ book:
     - part6.qmd
     - appendix.qmd
 
+bibliography: references.bib
+csl: american-medical-association.csl
+
 format:
   html:
     theme: cosmo
