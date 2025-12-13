@@ -6,7 +6,7 @@
 
 📋 **複製這段話，貼給 AI：**
 
-> 我有一個資料框 `my_data`，裡面有 treatment（A 或 B 兩組）和 los（住院天數）。請用 ggplot2 畫一個盒狀圖，比較兩組的住院天數分佈。
+> 我有一個資料框 `patient_data`，裡面有 treatment（A 或 B 兩組）和 los（住院天數）。請用 ggplot2 畫一個盒狀圖，比較兩組的住院天數分佈。
 
 ### 基本盒狀圖
 
@@ -19,10 +19,10 @@
 library(ggplot2)
 
 # 讀取資料
-my_data <- read.csv("patient_data.csv")
+patient_data <- read.csv("patient_data.csv")
 
 # 畫基本盒狀圖
-ggplot(my_data, aes(x = treatment, y = los)) +
+ggplot(patient_data, aes(x = treatment, y = los)) +
   geom_boxplot()
 ```
 
@@ -31,12 +31,16 @@ ggplot(my_data, aes(x = treatment, y = los)) +
 📋 **複製這段話，貼給 AI：**
 
 > 請幫我美化這個盒狀圖：
-> 
+>
 > 1. 加上標題「兩組治療的住院天數比較」
 > 2. X 軸標籤改成「治療組別」，Y 軸改成「住院天數（天）」
-> 3. 兩組用不同顏色（藍色和橘色）
-> 4. 使用簡潔的主題風格
+> 3. 用 jf-openhuninn-2.1.ttf 作為中文字體
+> 4. 使用 ggsci 的 JAMA 風格
 > 5. 不要顯示圖例（因為 X 軸已經說明了）
+
+請先下載 jf open 粉圓字型。
+
+其他推薦的美化套件：ggthemr, hrbrthemes, tvthemes, ggthemes, viridis, scico
 
 ### 專業化盒狀圖
 
@@ -46,10 +50,13 @@ ggplot(my_data, aes(x = treatment, y = los)) +
 #| message: false
 #| warning: false
 
-# 畫專業的盒狀圖
-ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
+# 載入 ggsci 套件（提供期刊風格配色）
+library(ggsci)
+
+# 畫專業的盒狀圖（使用 JAMA 配色）
+ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
   geom_boxplot() +
-  scale_fill_manual(values = c("A" = "steelblue", "B" = "darkorange")) +
+  scale_fill_jama() +
   labs(
     title = "兩組治療的住院天數比較",
     x = "治療組別",
@@ -77,10 +84,10 @@ ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
 #| warning: false
 
 # 盒狀圖加上資料點
-ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
+ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
   geom_boxplot(alpha = 0.7) +
   geom_jitter(width = 0.2, alpha = 0.5, size = 2) +
-  scale_fill_manual(values = c("A" = "steelblue", "B" = "darkorange")) +
+  scale_fill_jama() +
   labs(
     title = "兩組治療的住院天數比較",
     x = "治療組別",
@@ -95,7 +102,23 @@ ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
 
 ## 任務 18：其他類型的圖
 
-### 選項 A：長條圖
+📋 **選一個你有興趣的，貼給 AI：**
+
+**選項 A (長條圖)：**
+
+> 請用 ggplot2 畫一個長條圖，顯示 patient_data 裡面 gender 的人數分佈。
+
+**選項 B (散佈圖)：**
+
+> 請用 ggplot2 畫一個散佈圖，X 軸是 age，Y 軸是 los，我想看年齡和住院天數有沒有關係。
+
+**選項 C (直方圖)：**
+
+> 請用 ggplot2 畫一個直方圖，顯示 los 的分佈。
+
+用 patchwork 把所有 Graph 整合在一起。視情況使用 ggdist / ggtext / ggiraph / ggh4x。
+
+### 長條圖範例
 
 ```{r}
 #| label: barplot
@@ -104,9 +127,9 @@ ggplot(my_data, aes(x = treatment, y = los, fill = treatment)) +
 #| warning: false
 
 # 性別分佈長條圖
-ggplot(my_data, aes(x = gender, fill = gender)) +
+ggplot(patient_data, aes(x = gender, fill = gender)) +
   geom_bar() +
-  scale_fill_manual(values = c("M" = "lightblue", "F" = "pink")) +
+  scale_fill_jama() +
   labs(
     title = "性別分佈",
     x = "性別",
@@ -116,7 +139,7 @@ ggplot(my_data, aes(x = gender, fill = gender)) +
   theme(legend.position = "none")
 ```
 
-### 選項 B：散佈圖
+### 散佈圖範例
 
 ```{r}
 #| label: scatterplot
@@ -125,10 +148,10 @@ ggplot(my_data, aes(x = gender, fill = gender)) +
 #| warning: false
 
 # 年齡與住院天數散佈圖
-ggplot(my_data, aes(x = age, y = los, color = treatment)) +
+ggplot(patient_data, aes(x = age, y = los, color = treatment)) +
   geom_point(size = 3, alpha = 0.6) +
   geom_smooth(method = "lm", se = TRUE) +
-  scale_color_manual(values = c("A" = "steelblue", "B" = "darkorange")) +
+  scale_color_jama() +
   labs(
     title = "年齡與住院天數的關係",
     x = "年齡（歲）",
@@ -138,7 +161,7 @@ ggplot(my_data, aes(x = age, y = los, color = treatment)) +
   theme_minimal()
 ```
 
-### 選項 C：直方圖
+### 直方圖範例
 
 ```{r}
 #| label: histogram
@@ -147,9 +170,9 @@ ggplot(my_data, aes(x = age, y = los, color = treatment)) +
 #| warning: false
 
 # 住院天數分佈直方圖
-ggplot(my_data, aes(x = los, fill = treatment)) +
+ggplot(patient_data, aes(x = los, fill = treatment)) +
   geom_histogram(binwidth = 2, alpha = 0.7, position = "dodge") +
-  scale_fill_manual(values = c("A" = "steelblue", "B" = "darkorange")) +
+  scale_fill_jama() +
   labs(
     title = "住院天數分佈",
     x = "住院天數（天）",
@@ -159,11 +182,41 @@ ggplot(my_data, aes(x = los, fill = treatment)) +
   theme_minimal()
 ```
 
+### 使用 patchwork 整合多張圖
+
+```{r}
+#| label: patchwork-example
+#| echo: true
+#| message: false
+#| warning: false
+#| fig-width: 12
+#| fig-height: 8
+
+library(patchwork)
+
+# 建立三張圖
+p1 <- ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
+  geom_boxplot() + scale_fill_jama() + theme_minimal() +
+  theme(legend.position = "none") + labs(title = "A. 盒狀圖")
+
+p2 <- ggplot(patient_data, aes(x = age, y = los, color = treatment)) +
+  geom_point() + scale_color_jama() + theme_minimal() +
+  labs(title = "B. 散佈圖")
+
+p3 <- ggplot(patient_data, aes(x = los, fill = treatment)) +
+  geom_histogram(binwidth = 2, alpha = 0.7) + scale_fill_jama() +
+  theme_minimal() + labs(title = "C. 直方圖")
+
+# 用 patchwork 組合
+(p1 | p2) / p3 + plot_annotation(title = "綜合圖表分析")
+```
+
 ## 任務 19：存檔你的圖
 
 📋 **複製這段話，貼給 AI：**
 
-> 我畫好了一張 ggplot2 的圖，想要存成 PNG 檔案，解析度要夠高可以放在論文裡（300 dpi），大小大約是 8 x 6 英吋。請給我存檔的程式碼。
+> 我畫好了一張 ggplot2 的圖，想要存成 PNG 檔案，解析度要夠高可以放在論文裡（300 dpi），大小大約是 8×6 英吋。請給我存檔的程式碼。
+> 接著用 svglite 存成 svg 檔（請先下載 svglite）
 
 ### 儲存高品質圖檔
 
@@ -172,7 +225,7 @@ ggplot(my_data, aes(x = los, fill = treatment)) +
 #| echo: true
 #| eval: false
 
-# 儲存最後畫的圖
+# 儲存為 PNG 檔（點陣圖，適合網頁和簡報）
 ggsave(
   filename = "boxplot_comparison.png",
   width = 8,
@@ -182,4 +235,17 @@ ggsave(
 )
 
 print("圖表已成功儲存為 boxplot_comparison.png")
+
+# 儲存為 SVG 檔（向量圖，適合論文和縮放）
+library(svglite)
+
+ggsave(
+  filename = "boxplot_comparison.svg",
+  width = 8,
+  height = 6,
+  units = "in",
+  device = svglite
+)
+
+print("圖表已成功儲存為 boxplot_comparison.svg")
 ```

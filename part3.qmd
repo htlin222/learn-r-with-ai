@@ -21,13 +21,13 @@
 
 📋 **複製這段話，貼給 AI：**
 
-> 我有一個 R 資料框叫做 `my_data`，裡面有這些欄位：
-> 
+> 我有一個 R 資料框叫做 `patient_data`，裡面有這些欄位：
+>
 > - treatment：治療組別（A 或 B）
 > - age：年齡
 > - gender：性別（M 或 F）
 > - los：住院天數
-> 
+>
 > 請用 gtsummary 套件幫我做一個 Table 1，依照 treatment 分組，顯示其他變數的描述性統計。請給我可以直接執行的程式碼。
 
 ### 建立 Table 1
@@ -42,10 +42,10 @@ library(gtsummary)
 library(dplyr)
 
 # 讀取資料
-my_data <- read.csv("patient_data.csv")
+patient_data <- read.csv("patient_data.csv")
 
 # 建立基本的 Table 1
-table1 <- my_data %>%
+table1 <- patient_data %>%
   select(treatment, age, gender, los) %>%
   tbl_summary(
     by = treatment,
@@ -73,7 +73,7 @@ table1
 #| warning: false
 
 # 建立含 p-value 的 Table 1
-table1_with_p <- my_data %>%
+table1_with_p <- patient_data %>%
   select(treatment, age, gender, los) %>%
   tbl_summary(
     by = treatment,
@@ -109,7 +109,7 @@ gtsummary 會根據資料類型自動選擇適當的統計檢定：
 #| warning: false
 
 # 自訂統計檢定方法
-table1_custom <- my_data %>%
+table1_custom <- patient_data %>%
   select(treatment, age, gender, los) %>%
   tbl_summary(
     by = treatment,
@@ -148,7 +148,7 @@ table1_custom
 #| warning: false
 
 # 客製化 Table 1
-table1_final <- my_data %>%
+table1_final <- patient_data %>%
   select(treatment, age, gender, los) %>%
   tbl_summary(
     by = treatment,
@@ -170,11 +170,12 @@ table1_final <- my_data %>%
 table1_final
 ```
 
-## 任務 14：匯出你的表格
+## 任務 13：匯出你的表格
 
 📋 **複製這段話，貼給 AI：**
 
-> 我做好了一個 gtsummary 的表格，存在變數 `my_table` 裡面。我想要把它輸出成 Word 檔案，方便貼到我的論文。請給我程式碼。
+> 我做好了一個 gtsummary 的表格，想存在變數 my_table 裡面。我想要用 officer 把它輸出成 Word 跟 PPT 檔案，方便貼到我的論文。請給我程式碼。
+> 請看 <https://www.rdocumentation.org/packages/officer/versions/0.7.2> 來學習套件的操作
 
 ### 匯出表格
 
@@ -184,14 +185,27 @@ table1_final
 #| eval: false
 
 # 安裝必要套件（如果還沒安裝）
-# install.packages("flextable")
+# install.packages(c("flextable", "officer"))
 
 library(flextable)
+library(officer)
 
-# 轉換為 flextable 格式並存成 Word 檔
-table1_final %>%
-  as_flex_table() %>%
-  flextable::save_as_docx(path = "Table1.docx")
+# 儲存表格為變數
+my_table <- table1_final
 
-print("Table 1 已成功匯出為 Table1.docx")
+# 轉換為 flextable 格式
+ft <- my_table %>% as_flex_table()
+
+# 存成 Word 檔
+doc <- read_docx() %>%
+  body_add_flextable(ft)
+print(doc, target = "Table1.docx")
+
+# 存成 PPT 檔
+ppt <- read_pptx() %>%
+  add_slide(layout = "Title and Content", master = "Office Theme") %>%
+  ph_with(ft, location = ph_location_type(type = "body"))
+print(ppt, target = "Table1.pptx")
+
+print("Table 1 已成功匯出為 Table1.docx 和 Table1.pptx")
 ```

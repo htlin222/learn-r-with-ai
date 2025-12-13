@@ -41,6 +41,16 @@ jobs:
             any::survival
             any::ggsurvfit
             any::broom.helpers
+            any::broom
+            any::effsize
+            any::flextable
+            any::officer
+            any::ggsci
+            any::patchwork
+            any::skimr
+            any::tibble
+            any::car
+            any::report
 
       - name: Setup Quarto
         uses: quarto-dev/quarto-actions/setup@v2

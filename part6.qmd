@@ -2,7 +2,7 @@
 
 本部分預計時間：20 分鐘
 
-## 任務 25：完整的分析流程
+## 任務 24：完整的分析流程
 
 📋 **複製這段話，貼給 AI：**
 
@@ -124,7 +124,49 @@ print("盒狀圖已儲存為 boxplot_los_comparison.png")
 print("===== 分析完成！=====")
 ```
 
-## 任務 26：做成你的範本
+## 任務 25：R 生成文字報告
+
+📋 **複製這段話，貼給 AI：**
+
+> 所有統計分析結果必須以純文字形式輸出，使用 capture.output() 或 sink() 將結果儲存至 report.txt。優先使用 report 和 broom 套件產生可讀的摘要。
+
+### 產出純文字報告
+
+```{r}
+#| label: text-report
+#| echo: true
+#| eval: false
+
+# 使用 report 和 broom 套件產生報告
+library(report)
+library(broom)
+
+# 假設已有一個模型
+model <- t.test(los ~ treatment, data = patient_data)
+
+# 方法一：使用 sink() 儲存報告
+sink("report.txt")
+print(summary(model))
+print(report::report(model))
+print(broom::tidy(model))
+sink()
+
+print("報告已儲存至 report.txt")
+```
+
+## 任務 26：改寫成 Result 段落
+
+📋 **複製這段話，貼給 AI：**
+
+> 請將以下結構化的報告，用英文改寫成我的研究中 Result 的一個描述段落
+
+### 範例輸出
+
+將 R 產生的統計摘要，轉換成適合論文的敘述文字，例如：
+
+> The mean length of stay was significantly shorter in Treatment A (4.58 ± 2.1 days) compared to Treatment B (11.56 ± 3.2 days), with a statistically significant difference (p < 0.001, Wilcoxon rank-sum test).
+
+## 任務 27：做成你的範本
 
 📋 **複製這段話，貼給 AI：**
 
@@ -248,7 +290,49 @@ ggsave(
 print(paste("分析完成！結果已儲存至", OUTPUT_TABLE, "和", OUTPUT_FIGURE))
 ```
 
-## 任務 27：當你離開這個教室之後
+## 任務 28：保存環境
+
+📋 **複製這段話，貼給 AI：**
+
+> 先用 renv::dependencies() 靜態掃描專案抓出所有第三方套件名稱，再用 packageVersion()（或 sessioninfo::session_info()）對這些套件逐一展開並記錄完整的版本號與環境資訊。請給我完整的程式碼。
+
+### 記錄套件版本
+
+```{r}
+#| label: save-environment
+#| echo: true
+#| eval: false
+
+# 安裝 renv 和 sessioninfo（如果還沒安裝）
+if (!require(renv, quietly = TRUE)) install.packages("renv")
+if (!require(sessioninfo, quietly = TRUE)) install.packages("sessioninfo")
+
+# 掃描專案中使用的套件
+deps <- renv::dependencies()
+packages_used <- unique(deps$Package)
+
+# 取得版本資訊
+pkg_versions <- sapply(packages_used, function(pkg) {
+  tryCatch(as.character(packageVersion(pkg)), error = function(e) NA)
+})
+
+# 整理成表格
+version_table <- data.frame(
+  Package = names(pkg_versions),
+  Version = pkg_versions,
+  row.names = NULL
+)
+print(version_table)
+
+# 完整的 session info
+sessioninfo::session_info()
+```
+
+### 論文中的環境描述範例
+
+> 所有統計分析與資料處理皆使用 R 軟體（R version 4.5.1）。分析程式碼之套件相依性以 renv 套件掃描整個專案目錄而得；除 base/recommended 套件外，本研究主要使用 dplyr（資料前處理）、ggplot2（資料視覺化）、lme4（線性混合效果模型）、survival（生存分析）等套件。完整之套件列表與版本資訊依 sessioninfo::session_info() 輸出，附於補充資料。
+
+## 任務 29：當你離開這個教室之後
 
 📋 **複製這段話，貼給 AI：**
 

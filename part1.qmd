@@ -1,12 +1,30 @@
-# 第一部分：你今天就會寫程式
+# 第一部分：快速入門
 
 本部分預計時間：40 分鐘
+
+## 環境設定
+
+在開始之前，請先安裝以下工具：
+
+- **R**：<https://cran.csie.ntu.edu.tw/>
+- **Quarto**：<https://quarto.org/docs/download/>
+- **Positron**：<https://positron.posit.co/download.html>
+
+## 這堂課的玩法
+
+1. 我給你一個「任務」
+2. 你把任務描述貼給 AI（ChatGPT / Claude / Gemini）
+3. AI 給你程式碼
+4. 你貼到 Posit.cloud / Positron 執行
+5. 我們一起看結果、理解發生了什麼
+
+**你的工作是「問對問題」，不是「寫對程式」。**
 
 ## 任務 1：你的第一個程式
 
 📋 **複製這段話，貼給 AI：**
 
-> 我完全沒學過 R 語言。請給我一段最簡單的 R 程式碼，讓我可以畫出一個有 5 根柱子的長條圖，每根柱子的高度分別是 10、25、15、30、20。請給我可以直接複製貼上執行的程式碼。
+> 我完全沒學過 R 語言。請給我一段最簡單的 R 程式碼，用內建的套件，讓我可以畫出一個有 5 根柱子的長條圖，每根柱子的高度分別是 10、25、15、30、20。請給我可以直接複製貼上執行的程式碼。請用英文標示所有 label。
 
 ### 範例程式碼
 
@@ -27,7 +45,7 @@ barplot(heights,
         col = "steelblue")
 ```
 
-⏱️ 3 分鐘後，你應該會在 RStudio / Antigravity 看到一張圖。
+⏱️ 3 分鐘後，你應該會看到一張圖。
 
 ## 任務 2：發生了什麼事？
 
@@ -45,7 +63,7 @@ barplot(heights,
 
 📋 **如果剛剛有錯誤訊息，複製錯誤訊息，加上這段話貼給 AI：**
 
-> 我在 RStudio / Antigravity 執行你給的程式碼，出現這個錯誤：
+> 我在 Positron 執行你給的程式碼，出現這個錯誤：
 > 【貼上錯誤訊息】
 > 請告訴我這是什麼意思，以及怎麼修正。
 
@@ -78,7 +96,7 @@ barplot(height)  # 變數名稱打錯了
 
 📋 **複製這段話，貼給 AI：**
 
-> 我要在 R 裡面使用 ggplot2、gtsummary、dplyr 這三個套件。請給我安裝這些套件的程式碼，以及安裝完之後怎麼載入它們。
+> 我要在 R 裡面使用 ggplot2、gtsummary、broom、dplyr、tidyverse、report、skimr 這些套件。請給我安裝這些套件的程式碼，以及安裝完之後怎麼載入它們。先裝 pak 這個套件，之後用它來安裝其他套件。
 
 ### 安裝與載入套件
 
@@ -86,13 +104,46 @@ barplot(height)  # 變數名稱打錯了
 #| label: install-packages
 #| eval: false
 
-# 安裝套件（只需執行一次）
-install.packages(c("ggplot2", "gtsummary", "dplyr"))
+# 先安裝 pak 套件（套件管理器）
+install.packages("pak")
+
+# 用 pak 安裝其他套件（只需執行一次）
+pak::pak(c("ggplot2", "gtsummary", "broom", "dplyr", "tidyverse", "report", "skimr"))
 
 # 載入套件（每次使用前都要執行）
-library(ggplot2)
+library(tidyverse)  # 包含 ggplot2, dplyr 等
 library(gtsummary)
-library(dplyr)
+library(broom)
+library(report)
+library(skimr)
 ```
 
 ⏱️ 安裝可能需要 2-3 分鐘，這是正常的。
+
+## 支線任務：環境管理
+
+📋 **複製這段話，貼給 AI：**
+
+> 有人要我在 R 裡面使用 renv 套件？他有何居心？
+
+### 說明
+
+`renv` 是 R 的套件版本管理工具，可以：
+
+- 記錄專案使用的套件版本
+- 確保分析結果的可重現性
+- 讓其他人能復現相同的環境
+
+## 小技巧：先請 AI 學一下套件怎麼用
+
+在使用新套件之前，可以請 AI 先查閱官方文件：
+
+- **CRAN** (cran.r-project.org): R 套件官方總倉庫
+- **Bioconductor** (bioconductor.org): 生物資訊學專用套件庫
+- **Tidyverse** (tidyverse.org): 資料科學核心套件群
+- **rOpenSci** (ropensci.org): 經同儕審查的科學研究套件
+- **R-universe** (r-universe.dev): 新一代套件搜尋整合平台
+
+📋 **複製這段話，貼給 AI：**
+
+> 請先看看這個網址，瞭解一下這個套件的用法

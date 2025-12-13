@@ -2,16 +2,17 @@
 
 本部分預計時間：30 分鐘
 
-## 任務 20：讓 AI 選擇統計方法
+## 任務 19：讓 AI 選擇統計方法
 
 📋 **複製這段話，貼給 AI：**
 
-> 我想要比較兩組病人（treatment A vs B）的住院天數（los）有沒有顯著差異。我的資料存在 `my_data` 裡面。
-> 
+> 上傳你的的 patient_data.csv 給 GPT
+> 我想要比較兩組病人（treatment A vs B）的住院天數（los）有沒有顯著差異。我的資料存在 `patient_data` 裡面。
+>
 > 請幫我：
-> 
-> 1. 判斷應該用什麼統計方法（為什麼）
-> 2. 給我執行這個檢定的 R 程式碼
+>
+> 1. 依變項尺度、組數、配對與常態性，依教科書原則選擇最合適之統計，並簡要說明選擇理由。
+> 2. 給我執行這個檢定的 R 程式碼，用內建的套件優先
 > 3. 告訴我怎麼解讀結果
 
 ### 統計檢定選擇
@@ -23,20 +24,20 @@
 #| warning: false
 
 # 讀取資料
-my_data <- read.csv("patient_data.csv")
+patient_data <- read.csv("patient_data.csv")
 
 # 先檢查資料分佈
 library(ggplot2)
 
 # 檢視分佈圖
-ggplot(my_data, aes(x = los, fill = treatment)) +
+ggplot(patient_data, aes(x = los, fill = treatment)) +
   geom_histogram(binwidth = 1, alpha = 0.6, position = "dodge") +
   facet_wrap(~treatment, ncol = 1) +
   theme_minimal()
 
 # 常態性檢定
-shapiro_a <- shapiro.test(my_data$los[my_data$treatment == "A"])
-shapiro_b <- shapiro.test(my_data$los[my_data$treatment == "B"])
+shapiro_a <- shapiro.test(patient_data$los[patient_data$treatment == "A"])
+shapiro_b <- shapiro.test(patient_data$los[patient_data$treatment == "B"])
 
 print("Shapiro-Wilk 常態性檢定結果：")
 print(paste("A 組 p-value:", round(shapiro_a$p.value, 4)))
@@ -50,15 +51,15 @@ print(paste("B 組 p-value:", round(shapiro_b$p.value, 4)))
 #| echo: true
 
 # 執行 t-test（假設資料符合常態分佈）
-t_test_result <- t.test(los ~ treatment, data = my_data)
+t_test_result <- t.test(los ~ treatment, data = patient_data)
 print(t_test_result)
 
 # 執行 Wilcoxon rank-sum test（無母數檢定）
-wilcox_result <- wilcox.test(los ~ treatment, data = my_data)
+wilcox_result <- wilcox.test(los ~ treatment, data = patient_data)
 print(wilcox_result)
 ```
 
-## 任務 21：解讀你的結果
+## 任務 20：解讀你的結果
 
 📋 **把統計檢定的輸出複製起來，加上這段話貼給 AI：**
 
@@ -70,12 +71,6 @@ print(wilcox_result)
 > 1. 兩組有沒有顯著差異
 > 2. p-value 是什麼意思
 > 3. 這個結果在臨床上可能代表什麼
->
-> 另外，請幫我：
->
-> 1. 用 broom 套件的 tidy() 函數把統計結果整理成乾淨的表格
-> 2. 用 capture.output() 或 sink() 把所有結果儲存成純文字檔 report.txt
-> 3. 產出一份完整的分析報告，包含描述性統計、檢定結果、效應量
 
 ### 結果解讀
 
@@ -101,7 +96,7 @@ if (!require(effsize, quietly = TRUE)) {
 library(effsize)
 
 # 整理結果摘要
-result_summary <- my_data %>%
+result_summary <- patient_data %>%
   group_by(treatment) %>%
   summarise(
     n = n(),
@@ -126,7 +121,7 @@ print("Wilcoxon test 結果（broom 整理後）：")
 print(wilcox_tidy)
 
 # 計算效應量（Cohen's d）
-cohen_d <- cohen.d(los ~ treatment, data = my_data)
+cohen_d <- cohen.d(los ~ treatment, data = patient_data)
 print(paste("效應量 (Cohen's d):", round(cohen_d$estimate, 3)))
 
 # 解釋
@@ -233,7 +228,7 @@ cat(readLines("report.txt", n = 20), sep = "\n")
 cat("...\n")
 ```
 
-## 任務 22：檢查假設
+## 任務 21：檢查假設
 
 📋 **複製這段話，貼給 AI：**
 
@@ -255,14 +250,14 @@ if (!require(car, quietly = TRUE)) {
 
 # Q-Q plot
 par(mfrow = c(1, 2))
-qqnorm(my_data$los[my_data$treatment == "A"], main = "Q-Q Plot: Treatment A")
-qqline(my_data$los[my_data$treatment == "A"])
+qqnorm(patient_data$los[patient_data$treatment == "A"], main = "Q-Q Plot: Treatment A")
+qqline(patient_data$los[patient_data$treatment == "A"])
 
-qqnorm(my_data$los[my_data$treatment == "B"], main = "Q-Q Plot: Treatment B")
-qqline(my_data$los[my_data$treatment == "B"])
+qqnorm(patient_data$los[patient_data$treatment == "B"], main = "Q-Q Plot: Treatment B")
+qqline(patient_data$los[patient_data$treatment == "B"])
 
 # 2. 檢查變異數同質性
-levene_result <- leveneTest(los ~ treatment, data = my_data)
+levene_result <- leveneTest(los ~ treatment, data = patient_data)
 print("Levene's Test for Homogeneity of Variance:")
 print(levene_result)
 
@@ -271,14 +266,14 @@ if (shapiro_a$p.value < 0.05 | shapiro_b$p.value < 0.05) {
   print("建議：資料不符合常態分佈，應使用 Wilcoxon rank-sum test")
 } else if (levene_result$`Pr(>F)`[1] < 0.05) {
   print("建議：變異數不同質，應使用 Welch's t-test")
-  welch_result <- t.test(los ~ treatment, data = my_data, var.equal = FALSE)
+  welch_result <- t.test(los ~ treatment, data = patient_data, var.equal = FALSE)
   print(welch_result)
 } else {
   print("建議：資料符合所有假設，可使用 Student's t-test")
 }
 ```
 
-## 任務 23：類別變數的比較
+## 任務 22：類別變數的比較
 
 📋 **複製這段話，貼給 AI：**
 
@@ -293,7 +288,7 @@ if (shapiro_a$p.value < 0.05 | shapiro_b$p.value < 0.05) {
 #| echo: true
 
 # 建立列聯表
-contingency_table <- table(my_data$treatment, my_data$gender)
+contingency_table <- table(patient_data$treatment, patient_data$gender)
 print("列聯表：")
 print(contingency_table)
 
@@ -320,7 +315,7 @@ if (chisq_result$p.value < 0.05) {
 }
 ```
 
-## 任務 24：存活分析 (Survival Analysis)
+## 任務 23：存活分析 (Survival Analysis)
 
 在臨床研究中，我們經常需要分析「時間到事件」的資料，例如：
 
@@ -340,21 +335,27 @@ if (chisq_result$p.value < 0.05) {
 
 📋 **複製這段話，貼給 AI：**
 
-> 我有一個存活分析的資料集 `patient_data_for_survival.csv`，包含：
+> 請看這組 time-to-event 的資料，做存活分析，看到生存資料時，先檢查：
 >
-> - patient_id：病人編號
-> - treatment：治療組別（Drug_A vs Drug_B）
-> - age：年齡
-> - gender：性別
-> - stage：癌症期別（I-IV）
-> - time：追蹤時間（月）
-> - status：事件狀態（1=死亡，0=存活/設限）
+> 1. 是否有 competing risks（互斥終點）
+> 2. 是否有 recurrent events 或 multi-state 轉換
+> 3. 暴露／關鍵共變項是否 time-varying 或藏 immortal time
+> 4. 是否有遲入、可能 informative censoring 或 center/doctor cluster
 >
-> 請幫我：
+> 然後依檢查結果決定是否需用 CIF/cause-specific/Fine-Gray、recurrent/multi-state、time-dependent Cox、left truncation、IPCW、frailty 或 cluster-robust SE 做方法調整。
 >
-> 1. 用 survival 套件做 Kaplan-Meier 存活曲線
-> 2. 比較兩個治療組的存活率有沒有差異（log-rank test）
-> 3. 畫出漂亮的存活曲線圖
+> 請給我適當的統計檢定程式碼，並教我怎麼解讀。
+
+### 如何選擇存活分析方法？
+
+| 問題 | 方法選擇 |
+|------|----------|
+| 是不是 time-to-event？不是就回傳統 GLM | |
+| 有沒有互斥終點截斷這個事件？ | competing risks（CIF + cause-specific / Fine-Gray） |
+| 同一人會不會多次發生這個事件，而且「次數」重要？ | recurrent events |
+| 是否在講多個臨床狀態與轉移路徑？ | multi-state |
+| 暴露／關鍵 covariate 隨時間出現或改變，或需要先活一段時間才能算暴露？ | time-dependent / trial emulation，防 immortal time |
+| 入隊時間、離隊（censoring）、中心/醫師，是否明顯和預後相關或構成分群？ | left truncation、IPCW / joint、cluster-robust 或 frailty |
 
 ### 讀取存活分析資料
 
