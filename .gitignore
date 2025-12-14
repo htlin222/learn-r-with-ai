@@ -40,4 +40,5 @@ Thumbs.db
 *.html
 *.pdf
 *.docx
+*.pptx
 /.quarto/
