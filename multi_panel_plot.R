@@ -6,8 +6,8 @@ library(svglite)
 library(ggh4x)
 library(patchwork)
 
-# 載入自訂中文字體
-font_add("openhuninn", "jf-openhuninn-2.1.ttf")
+# 載入中文字體 - 使用 Google Fonts
+font_add_google("Noto Sans TC", "noto-sans-tc")
 showtext_auto()
 
 # 讀取資料
@@ -20,7 +20,7 @@ p_bar <- ggplot(my_data, aes(x = gender, fill = gender)) +
   scale_fill_jama() +
   scale_x_discrete(labels = c("F" = "女性", "M" = "男性")) +
   labs(title = "性別人數分佈", x = "性別", y = "人數") +
-  theme_classic(base_family = "openhuninn") +
+  theme_classic(base_family = "noto-sans-tc") +
   theme(legend.position = "none")
 
 # B — 散佈圖：年齡 vs 住院天數（依治療組別分色）
@@ -34,7 +34,7 @@ p_scatter <- ggplot(my_data, aes(x = age, y = los, color = treatment)) +
     y = "住院天數（天）",
     color = "治療組"
   ) +
-  theme_classic(base_family = "openhuninn") +
+  theme_classic(base_family = "noto-sans-tc") +
   theme(legend.position = "bottom")
 
 # C — 直方圖：住院天數分佈（依治療組別分面）
@@ -49,7 +49,7 @@ p_hist <- ggplot(my_data, aes(x = los, fill = treatment)) +
     labeller = labeller(treatment = c("A" = "治療 A", "B" = "治療 B"))
   ) +
   labs(title = "住院天數分佈", x = "住院天數（天）", y = "人數") +
-  theme_classic(base_family = "openhuninn") +
+  theme_classic(base_family = "noto-sans-tc") +
   theme(legend.position = "none")
 
 # D — 盒狀圖：使用 ggh4x 巢狀分面
@@ -75,7 +75,7 @@ p_box <- ggplot(my_data, aes(
     x = "治療組別",
     y = "住院天數（天）"
   ) +
-  theme_classic(base_family = "openhuninn") +
+  theme_classic(base_family = "noto-sans-tc") +
   theme(legend.position = "none")
 
 # 使用 patchwork 組合四張圖
@@ -84,7 +84,7 @@ combined <- (p_bar | p_scatter) / (p_hist | p_box) +
     title = "病患資料綜合分析",
     theme = theme(
       plot.title = element_text(
-        size = 18, face = "bold", hjust = 0.5, family = "openhuninn"
+        size = 18, face = "bold", hjust = 0.5, family = "noto-sans-tc"
       )
     )
   )

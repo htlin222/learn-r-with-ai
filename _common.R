@@ -11,14 +11,14 @@ suppressPackageStartupMessages({
   library(sysfonts)
 })
 
-# 設定中文字型
-font_add("jf-openhuninn", "jf-openhuninn-2.1.ttf")
+# 設定中文字型 - 使用 Google Fonts 的 Noto Sans TC
+font_add_google("Noto Sans TC", "noto-sans-tc")
 showtext_auto()
 
 # 設定 ggplot2 全域主題（含字型）
 theme_set(
 
-  theme_minimal(base_family = "jf-openhuninn") +
+  theme_minimal(base_family = "noto-sans-tc") +
     theme(
       plot.title = element_text(face = "bold", hjust = 0.5),
       plot.subtitle = element_text(hjust = 0.5)
