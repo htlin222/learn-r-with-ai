@@ -15,13 +15,14 @@ source("_common.R")
 - **R**：<https://cran.csie.ntu.edu.tw/>
 - **Quarto**：<https://quarto.org/docs/download/>
 - **Positron**：<https://positron.posit.co/download.html>
+- **Posit.cloud: <https://posit.cloud/>
 
 ## 這堂課的玩法
 
 1. 我給你一個「任務」
 2. 你把任務描述貼給 AI（ChatGPT / Claude / Gemini）
 3. AI 給你程式碼
-4. 你貼到 Posit.cloud / Positron 執行
+4. 你貼到 [Posit.cloud](https://posit.cloud/) / Positron 執行
 5. 我們一起看結果、理解發生了什麼
 
 **你的工作是「問對問題」，不是「寫對程式」。**
@@ -44,12 +45,14 @@ categories <- c("A", "B", "C", "D", "E")
 
 # 畫長條圖（字型已由 _common.R 全域設定）
 par(family = "jf-openhuninn")
-barplot(heights,
-        names.arg = categories,
-        main = "我的第一個 R 圖表",
-        xlab = "類別",
-        ylab = "高度",
-        col = "steelblue")
+barplot(
+  heights,
+  names.arg = categories,
+  main = "我的第一個 R 圖表",
+  xlab = "類別",
+  ylab = "高度",
+  col = "steelblue"
+)
 ```
 
 ⏱️ 3 分鐘後，你應該會看到一張圖。
@@ -82,7 +85,7 @@ barplot(heights,
 #| eval: false
 
 # 這會產生錯誤（故意的）
-barplot(height)  # 變數名稱打錯了
+barplot(height) # 變數名稱打錯了
 ```
 
 🎯 記住：錯誤訊息是線索，不是你的錯。
@@ -115,10 +118,20 @@ barplot(height)  # 變數名稱打錯了
 install.packages("pak")
 
 # 用 pak 安裝其他套件（只需執行一次）
-pak::pak(c("ggplot2", "gtsummary", "broom", "dplyr", "tidyverse", "report", "skimr", "showtext", "sysfonts"))
+pak::pak(c(
+  "ggplot2",
+  "gtsummary",
+  "broom",
+  "dplyr",
+  "tidyverse",
+  "report",
+  "skimr",
+  "showtext",
+  "sysfonts"
+))
 
 # 載入套件（每次使用前都要執行）
-library(tidyverse)  # 包含 ggplot2, dplyr 等
+library(tidyverse) # 包含 ggplot2, dplyr 等
 library(gtsummary)
 library(broom)
 library(report)
