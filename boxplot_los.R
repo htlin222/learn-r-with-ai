@@ -5,8 +5,8 @@ library(showtext)
 library(svglite)
 library(ggh4x)
 
-# 載入自訂中文字體
-font_add("openhuninn", "jf-openhuninn-2.1.ttf")
+# 載入中文字體 - 使用 Google Fonts
+font_add_google("Noto Sans TC", "noto-sans-tc")
 showtext_auto()
 
 # 讀取資料
@@ -48,7 +48,7 @@ p <- ggplot(my_data, aes(
     x = "治療組別",
     y = "住院天數（天）"
   ) +
-  theme_classic(base_family = "openhuninn") +
+  theme_classic(base_family = "noto-sans-tc") +
   theme(
     plot.title = element_text(hjust = 0.5, size = 16, face = "bold"),
     plot.subtitle = element_text(hjust = 0.5, size = 11, color = "gray40"),

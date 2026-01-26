@@ -44,7 +44,7 @@ heights <- c(10, 25, 15, 30, 20)
 categories <- c("A", "B", "C", "D", "E")
 
 # 畫長條圖（字型已由 _common.R 全域設定）
-par(family = "jf-openhuninn")
+par(family = "noto-sans-tc")
 barplot(
   heights,
   names.arg = categories,
@@ -141,7 +141,7 @@ library(skimr)
 # 如需手動設定，可使用：
 # library(showtext)
 # library(sysfonts)
-# font_add("jf-openhuninn", "jf-openhuninn-2.1.ttf")
+# font_add_google("Noto Sans TC", "noto-sans-tc")
 # showtext_auto()
 ```
 

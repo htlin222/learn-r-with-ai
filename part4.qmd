@@ -40,11 +40,11 @@ ggplot(patient_data, aes(x = treatment, y = los)) +
 >
 > 1. 加上標題「兩組治療的住院天數比較」
 > 2. X 軸標籤改成「治療組別」，Y 軸改成「住院天數（天）」
-> 3. 用 jf-openhuninn-2.1.ttf [@jf-openhuninn] 作為中文字體
+> 3. 用 Noto Sans TC（Google Fonts）作為中文字體
 > 4. 使用 ggsci [@R-ggsci] 的 JAMA 風格
 > 5. 不要顯示圖例（因為 X 軸已經說明了）
 
-請先下載 [jf open 粉圓字型](https://github.com/justfont/open-huninn-font)。
+本專案使用 Google Fonts 的 [Noto Sans TC](https://fonts.google.com/noto/specimen/Noto+Sans+TC) 作為中文字型，透過 `sysfonts::font_add_google()` 自動下載，無需手動安裝。
 
 其他推薦的美化套件：ggthemr, hrbrthemes, tvthemes, ggthemes, viridis, scico
 
