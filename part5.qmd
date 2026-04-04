@@ -14,7 +14,7 @@ source("_common.R")
 
 📋 **複製這段話，貼給 AI：**
 
-> 上傳你的的 patient_data.csv 給 GPT
+> 上傳 patient_data.csv 給 AI，然後問：
 > 我想要比較兩組病人（treatment A vs B）的住院天數（los）有沒有顯著差異。我的資料存在 `patient_data` 裡面。
 >
 > 請幫我：
@@ -90,13 +90,13 @@ print(wilcox_result)
 # 載入必要套件
 library(dplyr)
 
-# 安裝並載入 broom 套件（用於整理統計結果）[@R-broom]
+# 安裝並載入 broom 套件（用於整理統計結果）
 if (!require(broom, quietly = TRUE)) {
   install.packages("broom", repos = "https://cloud.r-project.org/")
 }
 library(broom)
 
-# 安裝並載入 effsize 套件（用於計算效應量）[@R-effsize]
+# 安裝並載入 effsize 套件（用於計算效應量）
 if (!require(effsize, quietly = TRUE)) {
   install.packages("effsize", repos = "https://cloud.r-project.org/")
 }
@@ -249,7 +249,7 @@ cat("...\n")
 #| message: false
 #| warning: false
 
-# 1. 檢查常態性 [@R-car]
+# 1. 檢查常態性
 if (!require(car, quietly = TRUE)) {
   install.packages("car", repos = "https://cloud.r-project.org/")
   library(car)
@@ -340,6 +340,17 @@ if (chisq_result$p.value < 0.05) {
 - 有些病人中途失聯（lost to follow-up）
 - 這些「不完整」的觀察值不能直接丟掉，需要特殊處理
 
+::: {.callout-important}
+## 新資料集
+
+從這裡開始，我們使用另一份資料 `patient_data_for_survival.csv`（已包含在課程資料中）。這份資料的欄位和之前的 `patient_data.csv` 不同：
+
+- `time`：追蹤時間（月）
+- `status`：事件狀態（1 = 事件發生，0 = 設限/未發生）
+- `treatment`：治療組別（Drug_A 或 Drug_B）
+- `stage`：癌症期別（I、II、III）
+:::
+
 📋 **複製這段話，貼給 AI：**
 
 > 我有一組存活分析的資料（patient_data_for_survival.csv），包含追蹤時間（time）和事件狀態（status，1=事件發生，0=設限）。請幫我：
@@ -359,17 +370,6 @@ if (chisq_result$p.value < 0.05) {
 | 暴露／關鍵 covariate 隨時間出現或改變，或需要先活一段時間才能算暴露？ | time-dependent / trial emulation，防 immortal time |
 | 入隊時間、離隊（censoring）、中心/醫師，是否明顯和預後相關或構成分群？ | left truncation、IPCW / joint、cluster-robust 或 frailty |
 
-:::
-
-::: {.callout-important}
-## 新資料集
-
-從這裡開始，我們使用另一份資料 `patient_data_for_survival.csv`（已包含在課程資料中）。這份資料的欄位和之前的 `patient_data.csv` 不同：
-
-- `time`：追蹤時間（月）
-- `status`：事件狀態（1 = 事件發生，0 = 設限/未發生）
-- `treatment`：治療組別（Drug_A 或 Drug_B）
-- `stage`：癌症期別（I、II、III）
 :::
 
 ### 讀取存活分析資料
@@ -401,7 +401,7 @@ table(survival_data$treatment, survival_data$status)
 #| message: false
 #| warning: false
 
-# 安裝並載入必要套件 [@R-survival; @R-ggsurvfit]
+# 安裝並載入必要套件
 if (!require(survival, quietly = TRUE)) {
   install.packages("survival", repos = "https://cloud.r-project.org/")
 }
@@ -522,7 +522,7 @@ cox_model <- coxph(
 # 查看模型結果
 summary(cox_model)
 
-# 整理成漂亮的表格 [@R-gtsummary]
+# 整理成漂亮的表格
 if (!require(gtsummary, quietly = TRUE)) {
   install.packages("gtsummary", repos = "https://cloud.r-project.org/")
 }

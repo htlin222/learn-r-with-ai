@@ -201,8 +201,8 @@ table1_final
 # 安裝必要套件（如果還沒安裝）
 # install.packages(c("flextable", "officer"))
 
-library(flextable)  # [@R-flextable]
-library(officer)    # [@R-officer]
+library(flextable)
+library(officer)
 
 # 儲存表格為變數
 my_table <- table1_final

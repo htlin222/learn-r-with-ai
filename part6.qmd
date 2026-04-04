@@ -145,7 +145,7 @@ print("===== 分析完成！=====")
 #| echo: true
 #| eval: false
 
-# 使用 report 和 broom 套件產生報告 [@R-report; @R-broom]
+# 使用 report 和 broom 套件產生報告
 library(report)
 library(broom)
 
@@ -401,8 +401,8 @@ sessioninfo::session_info()
 #| message: false
 #| warning: false
 
-library(tibble)   # [@R-tibble]
-library(knitr)    # [@R-knitr]
+library(tibble)
+library(knitr)
 
 practice_plan <- tibble(
   週次 = 1:4,

@@ -142,7 +142,8 @@ pak::pak(c(
   "dplyr",         # 資料處理
   "gtsummary",     # Table 1
   "skimr",         # 資料摘要
-  "ggsci"          # 期刊配色
+  "ggsci",         # 期刊配色
+  "patchwork"      # 多圖組合
 ))
 ```
 

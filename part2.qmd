@@ -19,14 +19,16 @@ source("_common.R")
 
 📋 **複製這段話，貼給 AI：**
 
-> 我有一個 CSV 檔案叫做 patient_data.csv，放在【./ 專案根目錄】。請告訴我：
+> 我有一個 CSV 檔案叫做 patient_data.csv，放在我的專案資料夾裡。請告訴我：
 >
 > 1. 怎麼讀取這個檔案到 R 裡面
 > 2. 怎麼看前幾筆資料確認有讀成功
 >
 > 請給我可以直接執行的程式碼。
 
-進階技巧：用套件 googlesheets4 從雲端 read_sheet()
+::: {.callout-tip collapse="true" title="進階技巧"}
+也可以用套件 `googlesheets4` 的 `read_sheet()` 直接從 Google 試算表讀取資料。
+:::
 
 ### 讀取資料
 
@@ -60,7 +62,7 @@ head(patient_data)
 #| message: false
 #| warning: false
 
-# 載入 skimr 套件 [@R-skimr]
+# 載入 skimr 套件
 library(skimr)
 
 # 查看資料維度（幾列幾欄）

@@ -58,7 +58,7 @@ ggplot(patient_data, aes(x = treatment, y = los)) +
 #| message: false
 #| warning: false
 
-# 載入 ggsci 套件（提供期刊風格配色）[@R-ggsci]
+# 載入 ggsci 套件（提供期刊風格配色）
 library(ggsci)
 
 # 畫專業的盒狀圖（使用 JAMA 配色，字型已由 _common.R 全域設定）
@@ -116,7 +116,9 @@ ggplot(patient_data, aes(x = treatment, y = los, fill = treatment)) +
 
 > 請用 ggplot2 畫一個直方圖，顯示 los 的分佈。
 
-用 patchwork [@R-patchwork] 把所有 Graph 整合在一起。視情況使用 ggdist / ggtext / ggiraph / ggh4x。
+::: {.callout-tip collapse="true" title="進階：多圖組合"}
+可以用 `patchwork` [@R-patchwork] 把多張圖整合在一起。其他進階套件：ggdist、ggtext、ggiraph、ggh4x。
+:::
 
 ### 長條圖範例
 
