@@ -29,7 +29,7 @@
 1. 我給你一個「任務」
 2. 你把任務描述貼給 AI（ChatGPT / Claude）
 3. AI 給你程式碼
-4. 你貼到 RStudio / Antigravity 執行
+4. 你貼到 Positron / Posit.cloud 執行
 5. 我們一起看結果、理解發生了什麼
 
 **記住：你的工作是「問對問題」，不是「寫對程式」。**
@@ -38,19 +38,35 @@
 
 ```
 learn-r-with-ai/
-├── index.qmd                   # 封面頁
-├── part1.qmd                   # 第一部分：你今天就會寫程式
-├── part2.qmd                   # 第二部分：讀取你的資料
-├── part3.qmd                   # 第三部分：產出你的 Table 1
-├── part4.qmd                   # 第四部分：畫出論文等級的圖
-├── part5.qmd                   # 第五部分：統計檢定
-├── part6.qmd                   # 第六部分：整合與收尾
-├── appendix.qmd                # 附錄：給講師的備註
-├── patient_data.csv            # 示例數據
-├── _quarto.yml                 # Quarto 配置文件
-├── presentation-complete.Rmd   # 完整課程簡報
-├── presentation-part1.Rmd      # 第一部分簡報示範
-└── styles.css                  # 簡報樣式文件
+├── _quarto.yml                          # Quarto 書籍配置
+├── _common.R                            # 全域 R 設定（字型、主題、knitr）
+├── install.r                            # 一鍵安裝所有套件
+│
+├── index.qmd                            # 前言
+├── part1.qmd                            # 第一部分：快速入門（任務 1-5）
+├── part2.qmd                            # 第二部分：讀取你的資料（任務 6-8）
+├── part3.qmd                            # 第三部分：產出你的 Table 1（任務 9-14）
+├── part4.qmd                            # 第四部分：畫出論文等級的圖（任務 15-19）
+├── part5.qmd                            # 第五部分：統計檢定（任務 20-24）
+├── part6.qmd                            # 第六部分：整合與收尾（任務 25-30）
+├── appendix.qmd                         # 附錄：常見技術問題與解決方案
+│
+├── patient_data.csv                     # 主要教學資料（100 筆病人）
+├── patient_data_for_survival.csv        # 存活分析資料（100 筆）
+├── patient_data_meta.csv                # 統合分析資料（8 篇研究）
+│
+├── boxplot_los.R                        # 範例：盒狀圖腳本
+├── multi_panel_plot.R                   # 範例：多面板組合圖
+├── meta_analysis.R                      # 範例：統合分析
+├── mission1.r                           # 範例：存活分析
+│
+├── references.bib                       # 參考文獻（BibTeX）
+├── american-medical-association.csl      # AMA 引用格式
+├── presentation-complete.Rmd            # 完整課程簡報
+├── presentation-part1.Rmd              # 第一部分簡報示範
+├── styles.css                           # 簡報樣式
+├── README.md                            # 本文件
+└── LICENSE                              # MIT 授權
 ```
 
 ## 構建說明
@@ -62,8 +78,8 @@ learn-r-with-ai/
 - [Quarto](https://quarto.org/docs/get-started/)
 - [R](https://cran.r-project.org/)
 - IDE 選擇（任選一個）：
-  - [RStudio](https://posit.co/download/rstudio-desktop/) - 傳統 R 開發環境
-  - [Antigravity](https://antigravity.dev/) - 現代 AI 輔助開發環境
+  - [Positron](https://positron.posit.co/download.html) - Posit 新一代 IDE
+  - [Posit.cloud](https://posit.cloud/) - 雲端開發環境（免安裝）
 
 ### 構建書籍
 
@@ -83,13 +99,13 @@ quarto preview
 
 ### 使用簡報功能
 
-本項目包含 R Markdown 簡報文件，可以在 RStudio / Antigravity 的 Presentation 標籤中使用：
+本項目包含 R Markdown 簡報文件，可以在 Positron / Posit.cloud 的 Presentation 標籤中使用：
 
 1. **開啟簡報檔案**：
    - `presentation-complete.Rmd` - 完整課程簡報
    - `presentation-part1.Rmd` - 第一部分示範簡報
 
-2. **在 RStudio / Antigravity 中使用**：
+2. **在 Positron / Posit.cloud 中使用**：
    - 開啟 `.Rmd` 檔案
    - 點擊 **Knit** 按鈕
    - 選擇 "Knit to HTML (ioslides)"

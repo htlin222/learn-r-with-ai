@@ -26,8 +26,9 @@ theme_set(
 )
 
 # 設定 knitr 選項
+# 如果 ragg 有安裝就用 ragg_png（品質較好），否則用預設 png
 knitr::opts_chunk$set(
   fig.showtext = TRUE,
   fig.retina = 2,
-  dev = "ragg_png"
+  dev = if (requireNamespace("ragg", quietly = TRUE)) "ragg_png" else "png"
 )

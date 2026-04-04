@@ -8,7 +8,9 @@ source("_common.R")
 
 本部分預計時間：30 分鐘
 
-## 任務 19：讓 AI 選擇統計方法
+在第四部分，你已經學會畫出專業的圖表。現在我們要學習統計檢定 — 用數字證明你在圖表中看到的差異是否有意義。
+
+## 任務 20：讓 AI 選擇統計方法
 
 📋 **複製這段話，貼給 AI：**
 
@@ -40,7 +42,7 @@ ggplot(patient_data, aes(x = los, fill = treatment)) +
   geom_histogram(binwidth = 1, alpha = 0.6, position = "dodge") +
   facet_wrap(~treatment, ncol = 1)
 
-# 常態性檢定
+# Shapiro-Wilk 常態性檢定：p > 0.05 表示資料可能符合常態分佈
 shapiro_a <- shapiro.test(patient_data$los[patient_data$treatment == "A"])
 shapiro_b <- shapiro.test(patient_data$los[patient_data$treatment == "B"])
 
@@ -64,7 +66,7 @@ wilcox_result <- wilcox.test(los ~ treatment, data = patient_data)
 print(wilcox_result)
 ```
 
-## 任務 20：解讀你的結果
+## 任務 21：解讀你的結果
 
 📋 **把統計檢定的輸出複製起來，加上這段話貼給 AI：**
 
@@ -233,7 +235,7 @@ cat(readLines("report.txt", n = 20), sep = "\n")
 cat("...\n")
 ```
 
-## 任務 21：檢查假設
+## 任務 22：檢查假設
 
 📋 **複製這段話，貼給 AI：**
 
@@ -278,7 +280,7 @@ if (shapiro_a$p.value < 0.05 | shapiro_b$p.value < 0.05) {
 }
 ```
 
-## 任務 22：類別變數的比較
+## 任務 23：類別變數的比較
 
 📋 **複製這段話，貼給 AI：**
 
@@ -320,7 +322,7 @@ if (chisq_result$p.value < 0.05) {
 }
 ```
 
-## 任務 23：存活分析 (Survival Analysis)
+## 任務 24：存活分析 (Survival Analysis)
 
 在臨床研究中，我們經常需要分析「時間到事件」的資料，例如：
 
@@ -340,18 +342,13 @@ if (chisq_result$p.value < 0.05) {
 
 📋 **複製這段話，貼給 AI：**
 
-> 請看這組 time-to-event 的資料，做存活分析，看到生存資料時，先檢查：
+> 我有一組存活分析的資料（patient_data_for_survival.csv），包含追蹤時間（time）和事件狀態（status，1=事件發生，0=設限）。請幫我：
 >
-> 1. 是否有 competing risks（互斥終點）
-> 2. 是否有 recurrent events 或 multi-state 轉換
-> 3. 暴露／關鍵共變項是否 time-varying 或藏 immortal time
-> 4. 是否有遲入、可能 informative censoring 或 center/doctor cluster
->
-> 然後依檢查結果決定是否需用 CIF/cause-specific/Fine-Gray、recurrent/multi-state、time-dependent Cox、left truncation、IPCW、frailty 或 cluster-robust SE 做方法調整。
->
-> 請給我適當的統計檢定程式碼，並教我怎麼解讀。
+> 1. 畫出 Kaplan-Meier 存活曲線，比較兩組治療
+> 2. 用 log-rank test 檢定兩組有沒有差異
+> 3. 用白話文解釋結果
 
-### 如何選擇存活分析方法？
+::: {.callout-tip collapse="true" title="進階：如何選擇存活分析方法？"}
 
 | 問題 | 方法選擇 |
 |------|----------|
@@ -361,6 +358,19 @@ if (chisq_result$p.value < 0.05) {
 | 是否在講多個臨床狀態與轉移路徑？ | multi-state |
 | 暴露／關鍵 covariate 隨時間出現或改變，或需要先活一段時間才能算暴露？ | time-dependent / trial emulation，防 immortal time |
 | 入隊時間、離隊（censoring）、中心/醫師，是否明顯和預後相關或構成分群？ | left truncation、IPCW / joint、cluster-robust 或 frailty |
+
+:::
+
+::: {.callout-important}
+## 新資料集
+
+從這裡開始，我們使用另一份資料 `patient_data_for_survival.csv`（已包含在課程資料中）。這份資料的欄位和之前的 `patient_data.csv` 不同：
+
+- `time`：追蹤時間（月）
+- `status`：事件狀態（1 = 事件發生，0 = 設限/未發生）
+- `treatment`：治療組別（Drug_A 或 Drug_B）
+- `stage`：癌症期別（I、II、III）
+:::
 
 ### 讀取存活分析資料
 

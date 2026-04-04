@@ -19,8 +19,8 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width =
 
 ## 歡迎來到 AI 時代的 R 語言學習
 
-- 📖 **完整教材**: https://htlin222.github.io/2025-12-05-R-Basics/
-- 📁 **GitHub**: https://github.com/htlin222/2025-12-05-R-Basics
+- 📖 **完整教材**: https://htlin222.github.io/learn-r-with-ai/
+- 📁 **GitHub**: https://github.com/htlin222/learn-r-with-ai
 - 🎯 **目標**: 用 AI 輔助，快速上手 R 統計
 
 ---
@@ -67,8 +67,8 @@ knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width =
 ### 必備軟體
 - R (統計軟體)
 - IDE 選擇：
-  - **RStudio** - 傳統開發環境
-  - **Antigravity** - AI 輔助開發環境
+  - **Positron** - Posit 新一代 IDE
+  - **Posit.cloud** - 雲端開發環境（免安裝）
 - AI 助手：ChatGPT 或 Claude
 
 ### 今天會用到的 R 套件
@@ -100,8 +100,8 @@ barplot(heights,
 
 ### 現在就開始！
 
-1. 打開你的 RStudio / Antigravity
-2. 跟著線上教材：https://htlin222.github.io/2025-12-05-R-Basics/
+1. 打開你的 Positron / Posit.cloud
+2. 跟著線上教材：https://htlin222.github.io/learn-r-with-ai/
 3. 遇到問題就問 AI
 4. 我會在這裡協助大家
 
@@ -124,4 +124,4 @@ barplot(heights,
 
 ### 聯絡資訊
 - 📧 [你的 email]
-- 📚 教材永久連結：https://htlin222.github.io/2025-12-05-R-Basics/
+- 📚 教材永久連結：https://htlin222.github.io/learn-r-with-ai/

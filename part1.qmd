@@ -10,12 +10,17 @@ source("_common.R")
 
 ## 環境設定
 
-在開始之前，請先安裝以下工具：
+在開始之前，請選擇你的開發環境：
+
+::: {.callout-tip title="選擇你的路線"}
+**路線 A — 最簡單（推薦初學者）：** 使用 [Posit.cloud](https://posit.cloud/)，完全不需安裝任何軟體，打開瀏覽器即可開始。
+
+**路線 B — 本機安裝：** 安裝以下工具：
 
 - **R**：<https://cran.csie.ntu.edu.tw/>
-- **Quarto**：<https://quarto.org/docs/download/>
-- **Positron**：<https://positron.posit.co/download.html>
-- **Posit.cloud: <https://posit.cloud/>
+- **Positron**：<https://positron.posit.co/download.html>（Posit 新一代 IDE）
+- **Quarto**：<https://quarto.org/docs/download/>（如果要自己編譯本書才需要）
+:::
 
 ## 這堂課的玩法
 
@@ -33,7 +38,11 @@ source("_common.R")
 
 > 我完全沒學過 R 語言。請給我一段最簡單的 R 程式碼，用內建的套件，讓我可以畫出一個有 5 根柱子的長條圖，每根柱子的高度分別是 10、25、15、30、20。請給我可以直接複製貼上執行的程式碼。請用英文標示所有 label。
 
-### 範例程式碼
+### 範例程式碼 {.unnumbered}
+
+::: {.callout-note}
+下面的程式碼是一種可能的答案。你的 AI 可能會給你不同的版本 — 這完全正常！只要你看到一張長條圖，就算成功。
+:::
 
 ```{r}
 #| label: first-plot
@@ -73,7 +82,7 @@ barplot(
 
 📋 **如果剛剛有錯誤訊息，複製錯誤訊息，加上這段話貼給 AI：**
 
-> 我在 Positron 執行你給的程式碼，出現這個錯誤：
+> 我在 R 裡面執行你給的程式碼，出現這個錯誤：
 > 【貼上錯誤訊息】
 > 請告訴我這是什麼意思，以及怎麼修正。
 
@@ -106,35 +115,90 @@ barplot(height) # 變數名稱打錯了
 
 📋 **複製這段話，貼給 AI：**
 
-> 我要在 R 裡面使用 ggplot2 [@R-ggplot2]、gtsummary [@R-gtsummary]、broom [@R-broom]、dplyr [@R-dplyr]、tidyverse [@R-tidyverse]、report [@R-report]、skimr [@R-skimr] 這些套件。請給我安裝這些套件的程式碼，以及安裝完之後怎麼載入它們。先裝 pak 這個套件，之後用它來安裝其他套件。
+> 我要在 R 裡面使用 ggplot2、dplyr、gtsummary、skimr、ggsci 這些套件。請給我安裝這些套件的程式碼，以及安裝完之後怎麼載入它們。先裝 pak 這個套件，之後用它來安裝其他套件。
 
 ### 安裝與載入套件
 
+::: {.callout-warning title="課堂安裝太慢？"}
+如果現場安裝太慢，請使用 **Posit.cloud**（大多數套件已預裝），或在上課前執行 `source("install.r")` 預先安裝。
+:::
+
+::: {.panel-tabset}
+
+#### 快速版（課堂用）
+
+只裝課程前半段（Part 1-4）需要的套件，其餘稍後再裝：
+
 ```{r}
-#| label: install-packages
+#| label: install-packages-quick
 #| eval: false
 
-# 先安裝 pak 套件（套件管理器）
+# 先安裝 pak（更快的套件管理器，支援平行下載）
 install.packages("pak")
 
-# 用 pak 安裝其他套件（只需執行一次）
+# 課程核心套件（約 2 分鐘）
 pak::pak(c(
-  "ggplot2",
-  "gtsummary",
-  "broom",
-  "dplyr",
-  "tidyverse",
-  "report",
-  "skimr",
-  "showtext",
-  "sysfonts"
+  "ggplot2",       # 畫圖
+  "dplyr",         # 資料處理
+  "gtsummary",     # Table 1
+  "skimr",         # 資料摘要
+  "ggsci"          # 期刊配色
 ))
+```
+
+#### 完整版（課前安裝）
+
+一次裝好所有套件。**建議在上課前一天跑完**：
+
+```{r}
+#| label: install-packages-full
+#| eval: false
+
+# 先安裝 pak（更快的套件管理器，支援平行下載）
+install.packages("pak")
+
+# 或直接執行: source("install.r")
+pak::pak(c(
+  # === 核心（Part 1-4）===
+  "ggplot2",       # 畫圖
+  "dplyr",         # 資料處理
+  "gtsummary",     # Table 1
+  "skimr",         # 資料摘要
+  "ggsci",         # 期刊配色（JAMA 等）
+  "patchwork",     # 多圖組合
+
+  # === 中文字型 ===
+  "showtext",      # 中文字型渲染
+  "sysfonts",      # 字型管理
+
+  # === 統計檢定（Part 5）===
+  "broom",         # 整理統計結果
+  "effsize",       # 效應量（Cohen's d）
+  "car",           # Levene's test（⚠️ 安裝較慢，會拉 lme4）
+  "survival",      # 存活分析
+  "ggsurvfit",     # 存活曲線
+
+  # === 匯出（Part 6）===
+  "flextable",     # 表格格式化
+  "officer",       # Word / PPT 匯出
+  "report",        # 文字報告
+  "svglite",       # SVG 向量圖
+
+  # === 圖形裝置 ===
+  "ragg"           # 高品質 PNG（⚠️ 需編譯，可跳過）
+))
+```
+
+:::
+
+```{r}
+#| label: load-packages
+#| eval: false
 
 # 載入套件（每次使用前都要執行）
-library(tidyverse) # 包含 ggplot2, dplyr 等
+library(ggplot2)
+library(dplyr)
 library(gtsummary)
-library(broom)
-library(report)
 library(skimr)
 
 # 載入中文字型（本專案已在 _common.R 統一設定）
@@ -145,7 +209,16 @@ library(skimr)
 # showtext_auto()
 ```
 
-⏱️ 安裝可能需要 2-3 分鐘，這是正常的。
+⏱️ 快速版約 2 分鐘，完整版約 5-8 分鐘。
+
+::: {.callout-tip collapse="true" title="常見安裝問題排除"}
+
+- **Mac 出現 Xcode 錯誤**：在終端機執行 `xcode-select --install`
+- **`car` 安裝超過 3 分鐘**：正常，它會編譯 lme4 的 C++ 程式碼。可先跳過，Part 5 才需要
+- **`ragg` 安裝失敗**：可跳過。改用預設的 PNG 裝置（圖片品質稍低但功能相同）
+- **Posit.cloud 上安裝失敗**：大多數套件已預裝，試試直接 `library(套件名)` 看看
+
+:::
 
 ## 支線任務：環境管理
 
@@ -171,6 +244,6 @@ library(skimr)
 - **rOpenSci** (ropensci.org): 經同儕審查的科學研究套件
 - **R-universe** (r-universe.dev): 新一代套件搜尋整合平台
 
-📋 **複製這段話，貼給 AI：**
+📋 **複製這段話，貼給 AI（把 [套件名稱] 換成你要用的套件）：**
 
-> 請先看看這個網址，瞭解一下這個套件的用法
+> 請先查閱 [套件名稱] 的官方文件（CRAN 頁面），瞭解一下這個套件的主要功能和用法，然後用簡單的例子教我怎麼使用。
