@@ -10,6 +10,19 @@ source("_common.R")
 
 在第二部分，你已經學會讀取資料並探索它的基本結構。現在我們要用這些資料產出論文中最重要的表格 — Table 1。
 
+::: {.callout-note collapse="true" title="一鍵 Prompt：整章一次跑完"}
+
+> 我有一個 R 資料框 `patient_data`（從 patient_data.csv 讀取），欄位有 treatment（A/B）、age、gender（M/F）、los（住院天數）。請幫我用 gtsummary 一次完成：
+>
+> 1. 建立 Table 1，依 treatment 分組，連續變數顯示 mean ± SD，類別變數顯示 n (%)
+> 2. 加上 p-value（`add_p()`），並解釋 gtsummary 怎麼自動選擇統計方法
+> 3. 把欄位名稱改成中文（age → 年齡、gender → 性別、los → 住院天數），p < 0.05 粗體
+> 4. 用 flextable 和 officer 把表格匯出成 Word 檔（Table1.docx）
+>
+> 給我一個可以從 `read.csv()` 到匯出 Word 一次跑完的完整 script，加上中文註解。
+
+:::
+
 ::: {.callout-note}
 ## 為什麼要重新讀取資料？
 本書的每個章節都會重新讀取 `patient_data.csv`，這樣你可以從任何一個章節開始練習，不需要按順序執行前面的章節。

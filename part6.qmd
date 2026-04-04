@@ -10,6 +10,24 @@ source("_common.R")
 
 恭喜你走到最後一個部分！現在我們要把前面學到的所有技能整合成一個完整的分析流程，並做成可重複使用的範本。
 
+::: {.callout-note collapse="true" title="一鍵 Prompt：整章一次跑完"}
+
+> 請幫我寫一個完整的、可重複使用的 R 臨床研究分析範本，需求如下：
+>
+> 1. 最上面設定區：可修改的變數（資料檔名、分組變數、連續/類別變數、輸出檔名）
+> 2. 讀取 patient_data.csv
+> 3. 用 gtsummary 產出 Table 1（依 treatment 分組，含 p-value，中文標籤）
+> 4. 用 ggplot2 畫盒狀圖比較兩組 los（含 jitter 資料點）
+> 5. 做 t-test 和 Wilcoxon test
+> 6. 用 report 和 broom 套件產出純文字統計報告，存成 report.txt
+> 7. 把上述報告改寫成英文論文 Result 段落
+> 8. 把 Table 1 存成 Word、圖存成 PNG
+> 9. 用 renv::dependencies() 和 sessioninfo::session_info() 記錄套件版本
+>
+> 把整個 script 做成一個「只改最上面設定就能套用到不同資料」的範本，加上中文註解。
+
+:::
+
 ## 任務 25：完整的分析流程
 
 📋 **複製這段話，貼給 AI：**

@@ -10,6 +10,20 @@ source("_common.R")
 
 在第三部分，你已經學會用 gtsummary 做出 Table 1。現在我們要用 ggplot2 畫出論文等級的圖表。
 
+::: {.callout-note collapse="true" title="一鍵 Prompt：整章一次跑完"}
+
+> 我有資料框 `patient_data`（欄位：treatment A/B、age、gender M/F、los 住院天數）。請用 ggplot2 和 ggsci 幫我一次完成：
+>
+> 1. 畫一個盒狀圖比較兩組 los，使用 JAMA 配色，加上標題「兩組治療的住院天數比較」，中文軸標籤
+> 2. 在盒狀圖上疊加 jitter 資料點
+> 3. 畫一個性別分佈長條圖、一個 age vs los 散佈圖（含趨勢線）、一個 los 直方圖
+> 4. 用 patchwork 把以上四張圖組合成一張大圖
+> 5. 把組合圖存成 PNG（300 dpi, 12×8 inch）和 SVG
+>
+> 給我一個從 `read.csv()` 到 `ggsave()` 一次跑完的完整 script，加上中文註解。
+
+:::
+
 ## 任務 15：第一個盒狀圖
 
 📋 **複製這段話，貼給 AI：**

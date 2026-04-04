@@ -10,6 +10,21 @@ source("_common.R")
 
 在第一部分，你已經成功畫出第一張圖、認識了套件、安裝了工具。現在我們要學會讀取自己的資料。
 
+::: {.callout-note collapse="true" title="一鍵 Prompt：整章一次跑完"}
+
+> 我有一個 CSV 檔案叫做 patient_data.csv，放在我的專案資料夾裡，欄位有 patient_id、treatment、age、gender、los。請幫我一次完成：
+>
+> 1. 用 `read.csv()` 讀取這個檔案，存成 `patient_data`
+> 2. 用 `head()` 顯示前 6 筆資料
+> 3. 用 `dim()` 看幾列幾欄、`str()` 看資料結構、`summary()` 看基本統計
+> 4. 用 skimr 的 `skim()` 產生更詳細的摘要
+> 5. 檢查有沒有遺漏值（`colSums(is.na(...))`）
+> 6. 用白話文解讀每個欄位的分佈和需要注意的地方
+>
+> 給我可以從頭跑到尾的完整程式碼，加上中文註解。
+
+:::
+
 ::: {.callout-note}
 ## 關於資料檔案
 本課程的範例資料 `patient_data.csv` 已包含在課程資料夾中。如果你是用 Posit.cloud，請先將檔案上傳到你的專案中。

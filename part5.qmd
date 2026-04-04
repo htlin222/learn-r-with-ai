@@ -10,6 +10,25 @@ source("_common.R")
 
 在第四部分，你已經學會畫出專業的圖表。現在我們要學習統計檢定 — 用數字證明你在圖表中看到的差異是否有意義。
 
+::: {.callout-note collapse="true" title="一鍵 Prompt：整章一次跑完"}
+
+> 我有兩份資料：
+> - `patient_data.csv`：欄位 treatment（A/B）、age、gender（M/F）、los（住院天數）
+> - `patient_data_for_survival.csv`：欄位 treatment（Drug_A/Drug_B）、age、gender、stage（I/II/III）、time（追蹤月數）、status（1=事件,0=設限）
+>
+> 請幫我一次完成以下統計分析：
+>
+> 1. 用 Shapiro-Wilk 檢定 los 的常態性，根據結果選擇 t-test 或 Wilcoxon test 比較兩組
+> 2. 計算 Cohen's d 效應量，用白話文解讀結果
+> 3. 檢查假設（Q-Q plot、Levene's test），說明不符合時的替代方法
+> 4. 用卡方檢定比較兩組的性別比例
+> 5. 用存活資料畫 Kaplan-Meier 曲線（含信賴區間和風險表），做 log-rank test
+> 6. 跑 Cox 比例風險模型（treatment + age + gender + stage），整理成 gtsummary 表格
+>
+> 給我從讀取資料到產出所有結果的完整 script，加上中文註解。
+
+:::
+
 ## 任務 20：讓 AI 選擇統計方法
 
 📋 **複製這段話，貼給 AI：**
