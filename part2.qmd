@@ -27,7 +27,7 @@ source("_common.R")
 
 ::: {.callout-note}
 ## 關於資料檔案
-本課程的範例資料 `patient_data.csv` 已包含在課程資料夾中。如果你是用 Posit.cloud，請先將檔案上傳到你的專案中。
+本課程的範例資料 `patient_data.csv` 已包含在課程資料夾中。用 GitHub Codespaces 的話，檔案已經在你的工作目錄裡，直接讀取即可；如果你是用 Posit.cloud，請先將檔案上傳到你的專案中。
 :::
 
 ## 任務 6：讀取 CSV 檔案

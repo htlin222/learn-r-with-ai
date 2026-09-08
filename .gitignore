@@ -42,3 +42,11 @@ Thumbs.db
 *.docx
 *.pptx
 /.quarto/
+
+# my_analysis.R 的輸出（想把自己的成果存進 repo 的話，把這幾行刪掉）
+Table1.docx
+boxplot.png
+my_report.txt
+
+# Codespaces / devcontainer 本機殘留
+.devcontainer/.cache/

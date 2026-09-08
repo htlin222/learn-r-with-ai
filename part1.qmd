@@ -28,9 +28,16 @@ source("_common.R")
 在開始之前，請選擇你的開發環境：
 
 ::: {.callout-tip title="選擇你的路線"}
-**路線 A — 最簡單（推薦初學者）：** 使用 [Posit.cloud](https://posit.cloud/)，完全不需安裝任何軟體，打開瀏覽器即可開始。
+**路線 A — 最推薦：GitHub Codespaces。** 到 [課程 repo](https://github.com/htlin222/learn-r-with-ai) 按
+**Code → Codespaces → Create codespace on main**（或直接點
+[這個連結](https://codespaces.new/htlin222/learn-r-with-ai?quickstart=1)）。
+R、所有課程套件、中文字型都已經裝好，**連 `install.packages()` 都不用跑**，
+課程資料也已經在裡面了。只需要一個免費的 GitHub 帳號。
 
-**路線 B — 本機安裝：** 安裝以下工具：
+**路線 B — [Posit.cloud](https://posit.cloud/)：** 免安裝，打開瀏覽器即可開始，
+但部分套件要自己裝（見下面任務 5）。
+
+**路線 C — 本機安裝：** 安裝以下工具：
 
 - **R**：<https://cran.csie.ntu.edu.tw/>
 - **Positron**：<https://positron.posit.co/download.html>（Posit 新一代 IDE）
@@ -42,7 +49,7 @@ source("_common.R")
 1. 我給你一個「任務」
 2. 你把任務描述貼給 AI（ChatGPT / Claude / Gemini）
 3. AI 給你程式碼
-4. 你貼到 [Posit.cloud](https://posit.cloud/) / Positron 執行
+4. 你貼到 Codespaces / [Posit.cloud](https://posit.cloud/) / Positron 執行
 5. 我們一起看結果、理解發生了什麼
 
 **你的工作是「問對問題」，不是「寫對程式」。**
@@ -135,7 +142,10 @@ barplot(height) # 變數名稱打錯了
 ### 安裝與載入套件
 
 ::: {.callout-warning title="課堂安裝太慢？"}
-如果現場安裝太慢，請使用 **Posit.cloud**（大多數套件已預裝），或在上課前執行 `source("install.r")` 預先安裝。
+**用 GitHub Codespaces 的話，這個任務可以整個跳過** — 套件在開機前就裝好了。
+直接往下捲到「載入套件」那段程式碼，執行 `library()` 確認可以載入就好。
+
+其他環境：Posit.cloud 大多數套件已預裝；本機請在上課前一天執行 `source("install.r")` 預先安裝。
 :::
 
 ::: {.panel-tabset}
@@ -233,6 +243,7 @@ library(skimr)
 - **`car` 安裝超過 3 分鐘**：正常，它會編譯 lme4 的 C++ 程式碼。可先跳過，Part 5 才需要
 - **`ragg` 安裝失敗**：可跳過。改用預設的 PNG 裝置（圖片品質稍低但功能相同）
 - **Posit.cloud 上安裝失敗**：大多數套件已預裝，試試直接 `library(套件名)` 看看
+- **Codespaces 上找不到套件**：理論上不會發生；真的遇到就執行 `source("install.r")` 補裝
 
 :::
 

@@ -1,0 +1,38 @@
+name: Validate devcontainer
+
+# 只在環境設定被改動時執行：確認 Codespaces / 預建置一定裝得起來
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - ".devcontainer/**"
+      - "install.r"
+      - ".github/workflows/devcontainer.yml"
+  pull_request:
+    paths:
+      - ".devcontainer/**"
+      - "install.r"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build devcontainer and check course packages
+        uses: devcontainers/ci@v0.3
+        with:
+          push: never
+          runCmd: |
+            quarto --version
+            Rscript -e '
+              pkgs <- c("ggplot2", "dplyr", "gtsummary", "skimr", "ggsci",
+                        "patchwork", "showtext", "sysfonts", "broom", "effsize",
+                        "car", "survival", "ggsurvfit", "flextable", "officer",
+                        "meta", "metafor", "ggh4x", "languageserver")
+              missing <- pkgs[!vapply(pkgs, requireNamespace, logical(1), quietly = TRUE)]
+              if (length(missing)) stop("缺少套件：", paste(missing, collapse = ", "))
+              cat("所有課程套件都安裝成功\n")
+            '
