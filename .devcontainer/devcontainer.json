@@ -1,0 +1,54 @@
+// R 語言統計工具入門 — GitHub Codespaces 開發環境
+// 套件在「預建置（prebuild）」時就裝好，學生打開 Codespace 大約 30 秒即可上課。
+// 設定說明與預建置開啟方式請見 .devcontainer/README.md
+{
+  "name": "R 臨床統計教室",
+
+  // rocker 官方 devcontainer 映像：已含 R、tidyverse、pak，
+  // 並預設使用 Posit Public Package Manager 的二進位套件（安裝快很多）。
+  "image": "ghcr.io/rocker-org/devcontainer/tidyverse:4.5",
+
+  "features": {
+    // 中文字型 + 繪圖/字型相關的系統函式庫（showtext、ragg 需要）
+    "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+      "packages": "fonts-noto-cjk,libfontconfig1-dev,libfreetype6-dev,libharfbuzz-dev,libfribidi-dev,libpng-dev,libtiff-dev,libjpeg-dev"
+    },
+    // Quarto（渲染本書、輸出 HTML/PDF/Word）
+    "ghcr.io/rocker-org/devcontainer-features/quarto-cli:1": {
+      "version": "latest",
+      "installTinyTex": true
+    }
+  },
+
+  // onCreateCommand 會在「預建置」階段執行，
+  // 所以下面安裝的 R 套件會被烤進 prebuild 映像，學生開機時不用再等。
+  "onCreateCommand": "bash .devcontainer/setup.sh",
+  "waitFor": "onCreateCommand",
+
+  "postAttachCommand": "cat .devcontainer/welcome.txt",
+
+  "customizations": {
+    "vscode": {
+      // R 與 R Debugger 擴充套件、radian 終端機設定由基底映像提供，這裡只補上課程需要的
+      "extensions": [
+        "quarto.quarto",
+        "MS-CEINTL.vscode-language-pack-zh-hant"
+      ],
+      "settings": {
+        "editor.wordWrap": "on",
+        "files.autoSave": "afterDelay",
+        "files.encoding": "utf8",
+        "terminal.integrated.defaultProfile.linux": "bash"
+      }
+    }
+  },
+
+  "remoteUser": "rstudio",
+
+  // Codespaces 最小規格（2 核心）就足以跑完整堂課
+  "hostRequirements": {
+    "cpus": 2,
+    "memory": "8gb",
+    "storage": "32gb"
+  }
+}

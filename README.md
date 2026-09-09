@@ -3,8 +3,37 @@
 [![GitHub stars](https://img.shields.io/github/stars/htlin222/learn-r-with-ai?style=social)](https://github.com/htlin222/learn-r-with-ai/stargazers)
 [![Last Commit](https://img.shields.io/github/last-commit/htlin222/learn-r-with-ai)](https://github.com/htlin222/learn-r-with-ai/commits/main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/htlin222/learn-r-with-ai?quickstart=1)
 
 > 一個以 Quarto 建置的開源教學書籍，教你如何善用 AI 輔助學習 R 語言，完成臨床研究統計分析 -- 從零開始，不需要程式背景。
+
+## 30 秒開始上課
+
+按上面的 **Open in GitHub Codespaces**（或 **Code → Codespaces → Create codespace on main**），
+瀏覽器就會開出一台已經裝好一切的機器：
+
+- ✅ R 4.5 + 全部課程套件（gtsummary、ggplot2、survival⋯⋯）
+- ✅ Quarto、中文字型、VS Code 的 R 支援
+- ❌ 不用安裝任何軟體、不用等套件下載
+
+打開之後請先看 **[START-HERE.md](START-HERE.md)**，三個步驟就能跑出第一張圖。
+
+> 講師請先開啟 Codespaces **預建置（prebuild）**，學生的開機時間會從 10 分鐘降到 30 秒。
+> 設定方式見 [`.devcontainer/README.md`](.devcontainer/README.md)。
+
+### 想長期保留自己的分析？
+
+按 repo 首頁的 **Use this template → Create a new repository**，
+你會得到一份完全屬於自己的副本（含資料、範本、環境設定），
+可以放自己的研究資料、隨時開 Codespace 繼續做。
+
+### 其他上課方式
+
+| 方式 | 要裝什麼 | 適合 |
+|------|---------|------|
+| GitHub Codespaces（推薦） | 什麼都不用 | 課堂、臨時開機 |
+| [Posit.cloud](https://posit.cloud/) | 什麼都不用（部分套件要自己裝） | 沒有 GitHub 帳號 |
+| 本機 Positron / RStudio | R + Quarto + `source("install.r")` | 長期自用、資料不能上雲 |
 
 ## 在線閱讀
 
@@ -29,7 +58,7 @@
 1. 我給你一個「任務」
 2. 你把任務描述貼給 AI（ChatGPT / Claude）
 3. AI 給你程式碼
-4. 你貼到 Positron / Posit.cloud 執行
+4. 你貼到 Codespaces / Positron / Posit.cloud 執行
 5. 我們一起看結果、理解發生了什麼
 
 **記住：你的工作是「問對問題」，不是「寫對程式」。**
@@ -38,8 +67,17 @@
 
 ```
 learn-r-with-ai/
+├── .devcontainer/                       # Codespaces 環境（R、Quarto、套件、中文字型）
+│   ├── devcontainer.json                #   環境定義
+│   ├── setup.sh                         #   建立容器時自動裝好所有套件
+│   └── README.md                        #   給講師：如何開啟預建置 prebuild
+│
+├── START-HERE.md                        # 學生入門：三步驟開始上課
+├── my_analysis.R                        # 學生的分析範本（改最上面的設定就能換資料）
+│
 ├── _quarto.yml                          # Quarto 書籍配置
 ├── _common.R                            # 全域 R 設定（字型、主題、knitr）
+├── .Rprofile                            # 開啟專案時的 R 設定
 ├── install.r                            # 一鍵安裝所有套件
 │
 ├── index.qmd                            # 前言
@@ -73,10 +111,12 @@ learn-r-with-ai/
 
 ### 安裝依賴
 
-確保您已安裝：
+用 Codespaces 的話這一段可以跳過 — 環境已經幫你裝好了。
+
+在本機建置需要：
 
 - [Quarto](https://quarto.org/docs/get-started/)
-- [R](https://cran.r-project.org/)
+- [R](https://cran.r-project.org/)（建議 4.4 以上），並執行 `source("install.r")`
 - IDE 選擇（任選一個）：
   - [Positron](https://positron.posit.co/download.html) - Posit 新一代 IDE
   - [Posit.cloud](https://posit.cloud/) - 雲端開發環境（免安裝）

@@ -3,6 +3,7 @@
 # 使用方式：在 R 終端機執行 source("install.r")
 #
 # 提示：如果在課堂上網路太慢，請在上課前一天跑完。
+# GitHub Codespaces 使用者：這個腳本在建立環境時已經自動跑過，不用再執行。
 # Posit.cloud 使用者大多數套件已預裝，可跳過此步驟。
 # ============================================
 
@@ -40,14 +41,19 @@ pak::pak(c(
   "report",        # 文字報告
   "svglite",       # SVG 向量圖
 
+  # === 延伸範例腳本用（meta_analysis.R、boxplot_los.R）===
+  "meta",          # 統合分析
+  "metafor",       # 統合分析（森林圖、漏斗圖）
+  "ggh4x",         # ggplot2 進階分面
+
   # === 環境管理 ===
   "renv",          # 套件版本管理
   "sessioninfo"    # 環境資訊記錄
-))
+), ask = FALSE, upgrade = FALSE)   # 已經裝過的就跳過，不重複下載
 
 # ragg 需要系統函式庫，單獨裝，失敗也不影響課程
 tryCatch(
-  pak::pak("ragg"),
+  pak::pak("ragg", ask = FALSE, upgrade = FALSE),
   error = function(e) {
     cat("\n注意：ragg 安裝失敗（可能缺少系統函式庫），不影響課程進行。\n")
     cat("圖片將使用預設 PNG 裝置。\n")

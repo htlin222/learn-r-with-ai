@@ -6,6 +6,49 @@
 source("_common.R")
 ```
 
+## GitHub Codespaces 常見問題
+
+Codespaces 是 GitHub 提供的雲端開發環境，本課程已經幫你把 R、所有套件、
+中文字型都預先裝好，開機就能上課。
+
+#### 怎麼開？
+
+到 [課程 repo](https://github.com/htlin222/learn-r-with-ai) 按
+**Code → Codespaces → Create codespace on main**。
+如果 Codespace 選單上有 ⚡ 閃電標記，代表講師已經開啟預建置，約 30 秒就能進入；
+沒有的話第一次要等 8～12 分鐘（之後再開就很快）。
+
+#### 我的檔案會不會不見？
+
+不會。Codespace 停止之後檔案還在，下次啟動就回來了。
+但**刪除** Codespace 會連檔案一起刪掉，所以重要的東西記得：
+
+- 下載到自己的電腦：在左邊檔案列表對檔案按右鍵 → **Download**
+- 或 commit + push 回自己的 repo（用 **Use this template** 建立的那份）
+
+#### 免費額度會用完嗎？
+
+個人帳號每月有 120 核心小時（本課程用的是 2 核心機器 = 60 小時）。
+上完課請到 <https://github.com/codespaces> 把 Codespace **Stop** 或 **Delete**，
+閒置 30 分鐘也會自動停止。
+
+#### 怎麼看畫出來的圖？
+
+在 VS Code 裡執行 ggplot 之後，圖會出現在右邊的 **R Plot** 面板；
+如果沒出現，用 `ggsave("my_plot.png", width = 8, height = 6, dpi = 300)` 存成檔案，
+再從檔案列表點開來看。
+
+#### 套件真的都裝好了嗎？
+
+在 R 終端機執行下面這行驗證：
+
+```r
+library(gtsummary); library(ggplot2); library(survival)
+cat("環境沒問題！\n")
+```
+
+真的缺套件（理論上不會）就執行 `source("install.r")` 補裝。
+
 ### R 環境設置
 
 #### 套件安裝問題
