@@ -5,6 +5,17 @@
 # ============================================
 set -euo pipefail
 
+# 基底映像是用 root 裝套件的，套件庫（含 pak 的 _cache 目錄）屬於 root，
+# 但這個腳本是以一般使用者身分執行 -> pak 會卡在 "Cannot open lock file"。
+# 先把套件庫的擁有者改成目前使用者，順便讓學生上課臨時想裝套件時也不需要 sudo。
+echo "==> 調整 R 套件庫權限"
+R_LIB="$(Rscript -e 'cat(.libPaths()[1])')"
+if [ "$(id -u)" -ne 0 ] && command -v sudo >/dev/null 2>&1; then
+  sudo -n chown -R "$(id -u):$(id -g)" "$R_LIB" ||
+    echo "    （警告：改不了擁有者，若接下來安裝失敗請檢查套件庫權限）"
+fi
+echo "    套件庫：$R_LIB"
+
 echo "==> 安裝課程 R 套件（install.r）"
 Rscript install.r
 
