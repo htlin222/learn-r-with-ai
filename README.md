@@ -3,6 +3,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/htlin222/learn-r-with-ai?style=social)](https://github.com/htlin222/learn-r-with-ai/stargazers)
 [![Last Commit](https://img.shields.io/github/last-commit/htlin222/learn-r-with-ai)](https://github.com/htlin222/learn-r-with-ai/commits/main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/htlin222/learn-r-with-ai?quickstart=1)
 
 > 一個以 Quarto 建置的開源教學書籍，教你如何善用 AI 輔助學習 R 語言，完成臨床研究統計分析 -- 從零開始，不需要程式背景。
